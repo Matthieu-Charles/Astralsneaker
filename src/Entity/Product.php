@@ -28,6 +28,9 @@ class Product
     #[ORM\Column(type: 'smallint')]
     private $stock;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $photoFileName;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class Product
     public function setStock(int $stock): self
     {
         $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getPhotoFileName(): ?string
+    {
+        return $this->photoFileName;
+    }
+
+    public function setPhotoFileName(string $photoFileName): self
+    {
+        $this->photoFileName = $photoFileName;
 
         return $this;
     }
