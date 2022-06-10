@@ -25,6 +25,9 @@ class Product
     #[ORM\Column(type: 'float')]
     private $price;
 
+    #[ORM\Column(type: 'smallint')]
+    private $stock;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Product
     public function setPrice(float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): self
+    {
+        $this->stock = $stock;
 
         return $this;
     }
