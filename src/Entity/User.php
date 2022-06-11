@@ -42,7 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 11)]
     private $telephone;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'date_immutable')]
     private $dateOfBirth;
 
     public function getId(): ?int
@@ -187,21 +187,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDateOfBirth(): ?\DateTimeInterface
+    public function __toString()
+    {
+        return $this->getFirstName(). ' '. $this->getLastName();
+    }
+
+    public function getDateOfBirth(): ?\DateTimeImmutable
     {
         return $this->dateOfBirth;
     }
 
-    public function setDateOfBirth(\DateTimeInterface $dateOfBirth): self
+    public function setDateOfBirth(\DateTimeImmutable $dateOfBirth): self
     {
         $this->dateOfBirth = $dateOfBirth;
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->getFirstName(). ' '. $this->getLastName();
     }
 
     
