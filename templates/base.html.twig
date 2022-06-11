@@ -8,8 +8,9 @@
 			{% endblock %}
 		</title>
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 		<link
-		href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+		rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
@@ -21,7 +22,68 @@
 		{% endblock %}
 	</head>
 	<body>
+		<header class="container-fluid bg-danger p-5 d-flex">
+			<div class="container">
+				<div class="row d-flex">
+					<div class="col-2 d-flex align-items-center">
+						<input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" aria-label=".form-control-sm example">
+						<button type="button" class="btn btn-danger btn-sm ">
+							<i class="bi bi-search"></i>
+						</button>
+					</div>
+					<div class="col-8 text-center">
+						<h2 class="fw-bold text-white">ASTRAL SNEAKER</h2>
+					</div>
+					<div class="col-2 d-flex align-items-center">
+						<button type="button" class="btn btn-danger btn-sm">
+							<i class="bi bi-cart-fill"></i>
+						</button>
+
+						{% if is_granted('ROLE_USER') %}
+							<div class="btn-group">
+								<button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+									Mon compte
+								</button>
+								<ul class="dropdown-menu">
+									<li>
+										<a class="dropdown-item" href="#">Mes informations</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="#">Mes commandes</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
+									</li>
+								</ul>
+							</div>
+						{% else %}
+							<button type="button" class="btn btn-danger btn-sm fw-bold">
+								<a class="link-light text-decoration-none" href="{{ path('app_login')}}">Se connecter</a>
+							</button>
+						{% endif %}
+
+						{% if is_granted('ROLE_ADMIN') %}
+							<div class="btn-group">
+								<button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+									Administation
+								</button>
+								<ul class="dropdown-menu">
+									<li>
+										<a class="dropdown-item" href="#">Commandes</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="#">Ajouter produit</a>
+									</li>
+								</ul>
+							</div>
+						{% endif %}
+
+					</div>
+				</div>
+			</div>
+
+		</header>
 		{% block body %}{% endblock %}
-         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 	</body>
-</html>
+</html></body></html>
