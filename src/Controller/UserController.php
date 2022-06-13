@@ -13,8 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/user', name: 'app_user')]
-    public function index(UserRepository $useRepo, Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    #[Route('/user', name: 'add_user')]
+    public function addUser(UserRepository $useRepo, Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
 
