@@ -1,7 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Hello UserController!
+{% endblock %}
 
 {% block body %}
-   {{ form(form_user) }}
+	<div class="card mt-4">
+		<div class="card-header">
+			<h1 class="card-title font-weight-bold text-danger">
+				Créer un compte
+			</h1>
+		</div>
+		<div class="card-body">
+			{{ form(form_user) }}
+			</div>
+		</div>
 {% endblock %}

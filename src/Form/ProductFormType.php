@@ -23,7 +23,7 @@ class ProductFormType extends AbstractType
                 'label' => 'Nom'
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Commentaire'
+                'label' => 'Description'
             ])
             ->add('size', ChoiceType::class, [
                 'choices' => [
@@ -42,7 +42,8 @@ class ProductFormType extends AbstractType
                 'label' => 'Pointure'
             ])
             ->add('price', MoneyType::class, [
-                'label' => 'Prix'
+                'label' => 'Prix',
+                'attr' => ['class' => 'col-3']
             ])
             ->add('stock', IntegerType::class, [
                 'label' => 'Stock'
