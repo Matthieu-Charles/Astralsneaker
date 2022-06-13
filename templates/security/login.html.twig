@@ -24,16 +24,16 @@
 						Se connecter
 					</h1>
 				</div>
-				<div class="card-body">
+				<div class="card-body d-flex flex-column">
 					<label for="inputEmail" class="mb-1">Email</label>
 					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-3" autocomplete="email" required autofocus>
 					<label for="inputPassword" class="mb-1">Password</label>
 					<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-					<div class="mt-4 justify-content-between">
-						<a href="{{path('add_user')}}" class="pe-5">Pas de compte ? inscrivez vous ici</a>
+					<div class="mt-4 d-flex flex-column">
+						<a href="{{path('add_user')}}" class="pe-5 align-self-start">Pas de compte ? inscrivez vous ici</a>
 						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-						<button class="btn btn-primary text-start" type="submit">
+						<button class="btn btn-primary text-start align-self-center" type="submit">
 							Se connecter
 						</button>
 					</div>
