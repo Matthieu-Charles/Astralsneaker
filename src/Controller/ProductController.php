@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AbstractController
 {
 
-    #[Route('/', name: 'app_accueil')]
+    #[Route('/', name: 'homepage')]
     public function index(ProductRepository $productRepo, Request $request): Response
     {
         $offset = max(0, $request->query->getInt('offset', 0));
