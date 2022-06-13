@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Astrasneaker | Accueil
+{% endblock %}
+
+{% block body %}
+
+
+
+{# affichage des fiches produits #}
+<div class="row row-cols-1 row-cols-md-2  row-cols-lg-3 g-4 mt-5">
+	{% for product in products %}
+
+	<div class="col">
+		<div class="card">
+			<img src="..." class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">{{ product.name }}</h5>
+				<p class="card-text">{{ product.description }}</p>
+				<a href="#" class="btn btn-primary">Fiche produit</a>
+			</div>
+		<div class="card-footer">
+			<small class="text-muted">Stock : {{product.stock}}</small>
+		</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+
+<div class="my-3 text-end">
+		{% if previous >= 0 %}
+		<a href="{{ path('homepage', { offset: previous }) }}" class="btn btn-sm btn-primary"><<</a>
+		{% endif %}
+		Il y a {{ products|length~' produit'~( products|length > 1 ? 's' : '') }}
+		{% if next < products|length %}
+		<a href="{{ path('homepage', { offset: next }) }}" class="btn btn-sm btn-primary">>></a>
+		{% endif %}
+</div>
+
+
+
+{% endblock %}

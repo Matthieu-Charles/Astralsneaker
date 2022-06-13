@@ -13,6 +13,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
 {
+
+    #[Route('/', name: 'homepage')]
+    public function index(ProductRepository $productRepo, Request $request): Response
+    {
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $productRepo->getProductPaginator($offset);
+
+
+        return $this->render('product/display.html.twig', [
+            'products' => $paginator,
+            'previous' => $offset - ProductRepository::PAGINATOR_PER_PAGE,
+            'next' => min(count($paginator), $offset + ProductRepository::PAGINATOR_PER_PAGE),
+        ]);
+    }
+
     #[Route('/product', name: 'app_product')]
     public function addProduct(ProductRepository $productRepo, Request $request, string $photoDir): Response
     {
