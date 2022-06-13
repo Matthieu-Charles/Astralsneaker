@@ -187,11 +187,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->getFirstName(). ' '. $this->getLastName();
-    }
-
     public function getDateOfBirth(): ?\DateTimeImmutable
     {
         return $this->dateOfBirth;
@@ -204,5 +199,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    
+    public function __toString()
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
 }

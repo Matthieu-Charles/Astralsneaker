@@ -46,8 +46,7 @@ class UserFormType extends AbstractType
                 'widget' => 'single_text',
                 'input' => 'datetime_immutable'
             ])
-            ->add('Valider', SubmitType::class)
-        ;
+            ->add('Valider', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
