@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Astrasneaker | Nos sneakers
+{% endblock %}
+
+{% block body %}
+
+	
+	{# affichage des fiches produits #}
+	
+		<h2 class="mt-5 text-center">Découvrez la sneaker de vos rêves</h2>
+		<div class="border-bottom"></div>
+
+	<div class="container">
+			
+			<div class="row">
+				<div class="col-sm-2 mt-2">
+					<div>filtre 1</div>
+					<div>filtre 2</div>
+					<div>filtre 3</div>
+				</div>
+				
+				
+				<div class="row col-sm-10 mt-2">
+					{% for product in products %}
+				
+					<div class="col-4 p-3">
+						<div class="card h-100 rounded-0 border-0 shadow-sm">
+							<img src="{{ photourl ~ '/' ~ product.photoFileName}}" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title fs-3 fw-bold">{{ product.name }}</h5>
+								<p class="card-text">{{ product.description | u.truncate(50, "...")}} </p>
+								<a href="{{path('productslist')}}" class="btn rounded-0 btn-secondary">Acheter</a>
+							</div>
+						<div class="card-footer d-flex justify-content-between">
+							<small class="text-muted py-auto">Stock : {{product.stock}}</small>
+							<small class="text-muted fs-3 fw-bold">{{product.price}}€</small>
+						</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			
+	</div>
+		
+		<div class="p-5 text-center mb-100px">
+				{% if previous >= 0 %}
+				<a href="{{ path('productslist', { offset: previous }) }}" class="btn btn-sm btn-secondary"><<</a>
+				{% endif %}
+				{# Il y a {{ products|length~' produit'~( products|length > 1 ? 's' : '') }} #}
+				{% if next < products|length %}
+				<a href="{{ path('productslist', { offset: next }) }}" class="btn btn-sm btn-secondary">>></a>
+				{% endif %}
+		</div>
+		
+	
+
+
+{% endblock %}
