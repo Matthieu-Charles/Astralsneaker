@@ -34,13 +34,6 @@ a {
   text-decoration: none;
 }
 
-#bodyClass {
-  margin-bottom: 125px;
-  margin-top: 125px !important;
-  margin-left: 200px;
-  margin-right: 200px;
-}
-
 header {
   height: 75px !important;
 }
