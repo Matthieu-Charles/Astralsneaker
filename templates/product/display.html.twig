@@ -50,11 +50,11 @@
 
 <div class="my-3 text-end">
 		{% if previous >= 0 %}
-		<a href="{{ path('app_accueil', { offset: previous }) }}" class="btn btn-sm btn-primary"><<</a>
+		<a href="{{ path('homepage', { offset: previous }) }}" class="btn btn-sm btn-primary"><<</a>
 		{% endif %}
 		Il y a {{ products|length~' produit'~( products|length > 1 ? 's' : '') }}
 		{% if next < products|length %}
-		<a href="{{ path('app_accueil', { offset: next }) }}" class="btn btn-sm btn-primary">>></a>
+		<a href="{{ path('homepage', { offset: next }) }}" class="btn btn-sm btn-primary">>></a>
 		{% endif %}
 </div>
 
