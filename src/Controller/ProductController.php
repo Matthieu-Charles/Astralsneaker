@@ -15,13 +15,15 @@ class ProductController extends AbstractController
 {
 
     #[Route('/', name: 'homepage')]
-    public function index(ProductRepository $productRepo, Request $request): Response
+    public function index(ProductRepository $productRepo, Request $request, String $photoUrl, String $photoUrlCar): Response
     {
         $offset = max(0, $request->query->getInt('offset', 0));
         $paginator = $productRepo->getProductPaginator($offset);
 
 
         return $this->render('product/display.html.twig', [
+            'photourl' => $photoUrl,
+            'photourlcar' => $photoUrlCar,
             'products' => $paginator,
             'previous' => $offset - ProductRepository::PAGINATOR_PER_PAGE,
             'next' => min(count($paginator), $offset + ProductRepository::PAGINATOR_PER_PAGE),

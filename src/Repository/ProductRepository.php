@@ -40,7 +40,7 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
-    public const PAGINATOR_PER_PAGE = 3;
+    public const PAGINATOR_PER_PAGE = 4;
 
     public function getProductPaginator(int $offset): Paginator
     {
