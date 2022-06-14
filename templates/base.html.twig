@@ -13,6 +13,7 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 		{% block css_custom %}
+		<link rel="stylesheet" href="styles\app.css">
 		{% endblock %}
 
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
@@ -25,9 +26,9 @@
 		{% endblock %}
 	</head>
 	<body>
-		<header class="container-fluid bg-primary h-100px d-flex">
-			<div class="container">
-				<div class="row d-flex">
+		<header class="fixed-top container-fluid bg-primary d-flex align-items-center">
+			<div class="container align-items-center">
+				<div class="row d-flex ">
 					<div class="col-2 d-flex align-items-center">
 						<input class="form-control form-control-sm mx-2" type="text" placeholder="" aria-label=".form-control-sm example">
 						<button type="button" class="btn btn-danger btn-sm ">
@@ -89,7 +90,7 @@
 
 		{% block body %}{% endblock %}
 		
-	<footer class="container-fluid bg-primary p-2 mx-0 d-flex row align-items-center">
+	<footer class="footer fixed-bottom container-fluid bg-primary pt-2 mx-0 d-flex row align-items-center">
 		<div class="container">
            	<ul class="list-inline d-flex column fs-8 justify-content-center align-items-center">
                	<li class="list-inline-item text-black"><a href="#">Accueil</a></li>
