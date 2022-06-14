@@ -1,0 +1,18 @@
+a {
+  color: white;
+}
+
+.bg-primary {
+  --bs-bg-opacity: 1;
+  background-color: rgb(16, 28, 106) !important;
+}
+
+.bg-danger {
+  --bs-bg-opacity: 1;
+  background-color: rgb(123, 123, 123) !important;
+}
+
+.carousel-inner > .item > img {
+  width: 640px !important;
+  height: 360px !important;
+}
