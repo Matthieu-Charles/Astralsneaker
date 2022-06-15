@@ -77,4 +77,12 @@ class UserController extends AbstractController
         }
         return false;
     }
+
+    
+    #[Route('/user/contact', name: 'contact')]
+    public function mymap():Response
+    {
+    return $this->render('user/contact.html.twig');
+    }
+     
 }
