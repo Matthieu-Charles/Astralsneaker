@@ -14,10 +14,76 @@
 	<div class="container">
 			
 			<div class="row">
+
 				<div class="col-sm-2 mt-2">
-					<div>filtre 1</div>
-					<div>filtre 2</div>
-					<div>filtre 3</div>
+
+					{# <form class="my-5">
+
+						<div class="row form-group my-1">
+							<div class="col-sm-6">
+								<select type="text" class="form-control" id="brand_search" name="brand_search">
+								<option value="">--Merci de choisir une option -> Marque <- --</option>
+								{% for brand in brands %}
+								<option {{ (brand == brand_search ? 'selected') }}>{{ brand }}</option>
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="row form-group my-1">
+							<div class="col-sm-6">
+								<select type="text" class="form-control" id="name_search" name="name_search">
+								<option value="">--Merci de choisir une option -> Nom <- --</option>
+								{% for name in names %}
+								<option {{ (name == name_search ? 'selected') }}>{{ name }}</option>
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+						
+						<button type="submit" class="btn btn-primary mt-3">Rechercher</button>
+					
+					</form> #}
+				
+
+					<form class="my-5">
+
+						<h3>Modèles</h3>	
+						{% for name in names %}
+						<div class="form-check form-switch">
+							<input class="form-check-input" type="checkbox" role="switch" id="{{name}}" name="name_search" value="{{name}}" {{ (name == name_search ? 'checked') }} >
+							<label class="form-check-label" for={{name}}>{{name}}</label>
+						</div>
+						{% endfor %}
+					
+						<h3 class="mt-5">Prix</h3>
+						{% for price in prices %}
+						<div class="form-check form-switch">
+							<input class="form-check-input" type="checkbox" role="switch" id="{{price}}" name="price_search" value="{{price}}" {{ (price == price_search ? 'checked') }} >
+							<label class="form-check-label" for={{price}}>{{price}}</label>
+						</div>
+						{% endfor %}
+						
+
+						{# <div class="form-check">
+							
+							<input class="form-check-input" type="checkbox" 
+							value="{{ name }}" id="" name="name_search" 
+							>
+							<label class="form-check-label" for="name_search">
+								{{name}}
+							</label>
+							
+						</div> #}
+						{# <div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+							<label class="form-check-label" for="flexCheckChecked">
+								Checked checkbox
+							</label>
+						</div> #}
+													
+						<button type="submit" class="btn btn-primary mt-3">Rechercher</button>
+					
+					</form>
 				</div>
 				
 				
