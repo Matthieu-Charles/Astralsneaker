@@ -39,28 +39,57 @@ class BrandRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Brand[] Returns an array of Brand objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('b.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getListBrand()
+    {
+        $brands = [];
+        foreach ($this->createQueryBuilder('c')
+            ->select('c.name', 'c.id')
+            ->distinct(true)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult() as $cols) {
+            $brands[$cols['id']] = $cols['name'];
+        }
 
-//    public function findOneBySomeField($value): ?Brand
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        return $brands;
+    }
+
+    // public function getListBrandId()
+    // {
+    //     $brandsId = [];
+    //     foreach ($this->createQueryBuilder('c')
+    //         ->select('c.id')
+    //         ->distinct(true)
+    //         ->orderBy('c.id', 'ASC')
+    //         ->getQuery()
+    //         ->getResult() as $cols) {
+    //         $brandsId[] = $cols['id'];
+    //     }
+
+    //     return $brandsId;
+    // }
+    //    /**
+    //     * @return Brand[] Returns an array of Brand objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('b')
+    //            ->andWhere('b.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('b.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Brand
+    //    {
+    //        return $this->createQueryBuilder('b')
+    //            ->andWhere('b.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

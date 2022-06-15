@@ -40,9 +40,9 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
-    public const PAGINATOR_PER_PAGE = 4;
+    public const PAGINATOR_PER_PAGE = 9;
 
-    public function getProductPaginator(int $offset, string $name = null, string $brand = null, string $price = null): Paginator
+    public function getProductPaginator(int $offset, string $name = null, string $brand = null, string $pricemini = null,  string $pricemaxi = null): Paginator
     {
         $query = $this->createQueryBuilder('c');
 
@@ -58,10 +58,16 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('brand', $brand);
         }
 
-        if ($price) {
+        if ($pricemini) {
             $query = $query
-                ->andWhere('c.price = :price')
-                ->setParameter('price', $price);
+                ->andWhere('c.price >= :pricemini')
+                ->setParameter('pricemini', $pricemini);
+        }
+
+        if ($pricemaxi) {
+            $query = $query
+                ->andWhere('c.price <= :pricemaxi')
+                ->setParameter('pricemaxi', $pricemaxi);
         }
 
         $query = $query->orderBy('c.name', 'DESC')
@@ -79,7 +85,7 @@ class ProductRepository extends ServiceEntityRepository
         foreach ($this->createQueryBuilder('c')
             ->select('c.name')
             ->distinct(true)
-            ->orderBy('c.name', 'ASC')
+            ->orderBy('c.brand', 'ASC')
             ->getQuery()
             ->getResult() as $cols) {
             $names[] = $cols['name'];
@@ -87,6 +93,22 @@ class ProductRepository extends ServiceEntityRepository
 
         return $names;
     }
+
+    // public function getListBrand()
+    // {
+    //     $brands = [];
+    //     foreach ($this->createQueryBuilder('c')
+    //         ->select('c.name', 'c.id')
+    //         ->distinct(true)
+    //         ->orderBy('c.id', 'ASC')
+    //         ->getQuery()
+    //         ->getResult() as $cols) {
+    //         $brands[$cols['id']] = $cols['name'];
+    //     }
+
+    //     return $brands;
+    // }
+
 
     public function getListPrice()
     {

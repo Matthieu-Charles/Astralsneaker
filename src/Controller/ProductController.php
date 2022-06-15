@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Brand;
 use App\Entity\Product;
 use App\Form\ProductFormType;
+use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -31,27 +32,30 @@ class ProductController extends AbstractController
     }
 
     #[Route('/productslist', name: 'productslist')]
-    public function show(ProductRepository $productRepo, Request $request, String $photoUrl, String $photoUrlCar): Response
+    public function show(BrandRepository $brandRepo, ProductRepository $productRepo, Request $request, String $photoUrl, String $photoUrlCar): Response
     {
-        $brands = ['adidas', 'nike', 'puma', 'reebok'];
-        //$productRepo->getListBrand();
+        // $brands = ['adidas', 'nike', 'puma', 'reebok'];
+        // $brandsId = $brandRepo->getListBrandId();
+
+        $brands = $brandRepo->getListBrand();
         $brand_search = $request->query->get('brand_search', '');
 
         $names = $productRepo->getListName();
         $name_search = $request->query->get('name_search', '');
 
         $prices = $productRepo->getListPrice();
-        $price_search = $request->query->get('price_search', '');
+        $price_mini = $request->query->get('mini', '');
+        $price_maxi = $request->query->get('maxi', '');
 
         $offset = max(0, $request->query->getInt('offset', 0));
-        $paginator = $productRepo->getProductPaginator($offset, $name_search, $brand_search, $price_search);
+        $paginator = $productRepo->getProductPaginator($offset, $name_search, $brand_search, $price_mini, $price_maxi);
 
         return $this->render('product/show.html.twig', [
-
             'brand_search' => $brand_search,
             'brands' => $brands,
-            'price_search' => $price_search,
-            'prices' => $prices,
+            // 'brandsId' => $brandsId,
+            'price_maxi' => $price_maxi,
+            'price_mini' => $price_mini,
             'name_search' => $name_search,
             'names' => $names,
             'photourl' => $photoUrl,
