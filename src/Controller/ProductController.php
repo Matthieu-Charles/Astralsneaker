@@ -19,15 +19,16 @@ class ProductController extends AbstractController
     #[Route('/', name: 'homepage')]
     public function index(ProductRepository $productRepo, Request $request, String $photoUrl, String $photoUrlCar): Response
     {
+        $paginatorPerPage = 4;
         $offset = max(0, $request->query->getInt('offset', 0));
-        $paginator = $productRepo->getProductPaginator($offset);
+        $paginator = $productRepo->getProductPaginator($paginatorPerPage, $offset);
 
         return $this->render('product/display.html.twig', [
             'photourl' => $photoUrl,
             'photourlcar' => $photoUrlCar,
             'products' => $paginator,
-            'previous' => $offset - ProductRepository::PAGINATOR_PER_PAGE,
-            'next' => min(count($paginator), $offset + ProductRepository::PAGINATOR_PER_PAGE),
+            'previous' => $offset - ProductRepository::PAGINATOR_PER_PAGE_1,
+            'next' => min(count($paginator), $offset + ProductRepository::PAGINATOR_PER_PAGE_1),
         ]);
     }
 
@@ -36,6 +37,7 @@ class ProductController extends AbstractController
     {
         // $brands = ['adidas', 'nike', 'puma', 'reebok'];
         // $brandsId = $brandRepo->getListBrandId();
+        $paginatorPerPage = 9;
 
         $brands = $brandRepo->getListBrand();
         $brand_search = $request->query->get('brand_search', '');
@@ -48,7 +50,7 @@ class ProductController extends AbstractController
         $price_maxi = $request->query->get('maxi', '');
 
         $offset = max(0, $request->query->getInt('offset', 0));
-        $paginator = $productRepo->getProductPaginator($offset, $name_search, $brand_search, $price_mini, $price_maxi);
+        $paginator = $productRepo->getProductPaginator($paginatorPerPage, $offset, $name_search, $brand_search, $price_mini, $price_maxi);
 
         return $this->render('product/show.html.twig', [
             'brand_search' => $brand_search,
@@ -61,8 +63,8 @@ class ProductController extends AbstractController
             'photourl' => $photoUrl,
             'photourlcar' => $photoUrlCar,
             'products' => $paginator,
-            'previous' => $offset - ProductRepository::PAGINATOR_PER_PAGE,
-            'next' => min(count($paginator), $offset + ProductRepository::PAGINATOR_PER_PAGE),
+            'previous' => $offset - ProductRepository::PAGINATOR_PER_PAGE_2,
+            'next' => min(count($paginator), $offset + ProductRepository::PAGINATOR_PER_PAGE_2),
         ]);
 
         //////
