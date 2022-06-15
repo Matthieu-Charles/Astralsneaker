@@ -42,18 +42,59 @@ class ProductRepository extends ServiceEntityRepository
 
     public const PAGINATOR_PER_PAGE = 4;
 
-    public function getProductPaginator(int $offset): Paginator
+    public function getProductPaginator(int $offset, string $name = null, string $brand = null): Paginator
     {
-        $query = $this->createQueryBuilder('c')
-            // ->andWhere('c.product = :product')
-            // ->setParameter('product', $product)
-            // ->orderBy('c.name', 'DESC')
+        $query = $this->createQueryBuilder('c');
+
+        if ($name) {
+            $query = $query
+                ->andWhere('c.name = :name')
+                ->setParameter('name', $name);
+        }
+
+        if ($brand) {
+            $query = $query
+                ->andWhere('c.brand = :brand')
+                ->setParameter('brand', $brand);
+        }
+
+        $query = $query->orderBy('c.name', 'DESC')
+            // ->addorderBy('c.brand')
             ->setMaxResults(self::PAGINATOR_PER_PAGE)
             ->setFirstResult($offset)
             ->getQuery();
 
         return new Paginator($query);
     }
+
+    public function getListName()
+    {
+        $names = [];
+        foreach ($this->createQueryBuilder('c')
+            ->select('c.name')
+            ->distinct(true)
+            ->orderBy('c.name', 'ASC')
+            ->getQuery()
+            ->getResult() as $cols) {
+            $names[] = $cols['name'];
+        }
+
+        return $names;
+    }
+
+    // public function getListBrand()
+    // {
+    //     $brands = [];
+    //     foreach ($this->createQueryBuilder('c')
+    //         ->select('c.')
+    //         ->distinct(true)
+    //         ->orderBy('c.year', 'ASC')
+    //         ->getQuery()
+    //         ->getResult() as $cols) {
+    //         $brands[] = $cols['brand'];
+    //     }
+    //     return $brands;
+    // }
 
     //    /**
     //     * @return Product[] Returns an array of Product objects

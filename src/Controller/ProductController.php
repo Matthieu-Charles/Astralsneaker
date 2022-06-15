@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Brand;
 use App\Entity\Product;
 use App\Form\ProductFormType;
 use App\Repository\ProductRepository;
@@ -20,7 +21,6 @@ class ProductController extends AbstractController
         $offset = max(0, $request->query->getInt('offset', 0));
         $paginator = $productRepo->getProductPaginator($offset);
 
-
         return $this->render('product/display.html.twig', [
             'photourl' => $photoUrl,
             'photourlcar' => $photoUrlCar,
@@ -33,17 +33,42 @@ class ProductController extends AbstractController
     #[Route('/productslist', name: 'productslist')]
     public function show(ProductRepository $productRepo, Request $request, String $photoUrl, String $photoUrlCar): Response
     {
-        $offset = max(0, $request->query->getInt('offset', 0));
-        $paginator = $productRepo->getProductPaginator($offset);
+        $brands = ['adidas', 'nike', 'puma', 'reebok'];
+        //$productRepo->getListBrand();
+        $brand_search = $request->query->get('brand_search', '');
 
+        $names = $productRepo->getListName();
+        $name_search = $request->query->get('name_search', '');
+
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $productRepo->getProductPaginator($offset, $name_search, $brand_search);
 
         return $this->render('product/show.html.twig', [
+            'brand_search' => $brand_search,
+            'brands' => $brands,
+            'name_search' => $name_search,
+            'names' => $names,
             'photourl' => $photoUrl,
             'photourlcar' => $photoUrlCar,
             'products' => $paginator,
             'previous' => $offset - ProductRepository::PAGINATOR_PER_PAGE,
             'next' => min(count($paginator), $offset + ProductRepository::PAGINATOR_PER_PAGE),
         ]);
+
+        //////
+        // Fonction qui marche 
+
+        // $offset = max(0, $request->query->getInt('offset', 0));
+        // $paginator = $productRepo->getProductPaginator($offset);
+
+
+        // return $this->render('product/show.html.twig', [
+        //     'photourl' => $photoUrl,
+        //     'photourlcar' => $photoUrlCar,
+        //     'products' => $paginator,
+        //     'previous' => $offset - ProductRepository::PAGINATOR_PER_PAGE,
+        //     'next' => min(count($paginator), $offset + ProductRepository::PAGINATOR_PER_PAGE),
+        // ]);
     }
 
     #[Route('/product', name: 'app_product')]
