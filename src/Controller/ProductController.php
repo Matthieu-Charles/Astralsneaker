@@ -30,6 +30,22 @@ class ProductController extends AbstractController
         ]);
     }
 
+    #[Route('/productslist', name: 'productslist')]
+    public function show(ProductRepository $productRepo, Request $request, String $photoUrl, String $photoUrlCar): Response
+    {
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $productRepo->getProductPaginator($offset);
+
+
+        return $this->render('product/show.html.twig', [
+            'photourl' => $photoUrl,
+            'photourlcar' => $photoUrlCar,
+            'products' => $paginator,
+            'previous' => $offset - ProductRepository::PAGINATOR_PER_PAGE,
+            'next' => min(count($paginator), $offset + ProductRepository::PAGINATOR_PER_PAGE),
+        ]);
+    }
+
     #[Route('/product', name: 'app_product')]
     public function addProduct(ProductRepository $productRepo, Request $request, string $photoDir): Response
     {
