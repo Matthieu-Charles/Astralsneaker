@@ -67,21 +67,41 @@ class ProductController extends AbstractController
             'previous' => $offset - $paginatorInt,
             'next' => min(count($paginator), $offset + $paginatorInt),
         ]);
-
-        //////
-        // Fonction qui marche 
-
-        // $offset = max(0, $request->query->getInt('offset', 0));
-        // $paginator = $productRepo->getProductPaginator($offset);
+    }
 
 
-        // return $this->render('product/show.html.twig', [
-        //     'photourl' => $photoUrl,
-        //     'photourlcar' => $photoUrlCar,
-        //     'products' => $paginator,
-        //     'previous' => $offset - ProductRepository::PAGINATOR_PER_PAGE,
-        //     'next' => min(count($paginator), $offset + ProductRepository::PAGINATOR_PER_PAGE),
-        // ]);
+    #[Route('/product/{id}', name: 'singleProduct')]
+    public function singleProduct(BrandRepository $brandRepo, ProductRepository $productRepo, Request $request, String $photoUrl, String $photoUrlCar): Response
+    {
+
+        $paginatorInt = 9;
+
+        $brands = $brandRepo->getListBrand();
+        $brand_search = $request->query->get('brand_search', '');
+
+        $names = $productRepo->getListName();
+        $name_search = $request->query->get('name_search', '');
+
+        $prices = $productRepo->getListPrice();
+        $price_mini = $request->query->get('mini', '');
+        $price_maxi = $request->query->get('maxi', '');
+
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $productRepo->getProductPaginator($paginatorInt, $offset, $name_search, $brand_search, $price_mini, $price_maxi);
+
+        return $this->render('product/singleProduct.html.twig', [
+            'brand_search' => $brand_search,
+            'brands' => $brands,
+            'price_maxi' => $price_maxi,
+            'price_mini' => $price_mini,
+            'name_search' => $name_search,
+            'names' => $names,
+            'photourl' => $photoUrl,
+            'photourlcar' => $photoUrlCar,
+            'products' => $paginator,
+            'previous' => $offset - $paginatorInt,
+            'next' => min(count($paginator), $offset + $paginatorInt),
+        ]);
     }
 
     #[Route('/product', name: 'app_product')]
