@@ -2,8 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Brand;
 use App\Entity\Product;
+use App\Repository\BrandRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -24,6 +27,14 @@ class ProductFormType extends AbstractType
             ])
             ->add('description', CKEditorType::class, [
                 'label' => 'Description'
+            ])
+            ->add('brand', EntityType::class, [
+                'label' => 'Marque',
+                'class' => Brand::class,
+                'query_builder' => function (BrandRepository $brand) {
+                    return $brand->createQueryBuilder('b')
+                        ->orderBy('b.name');
+                },
             ])
             ->add('size', ChoiceType::class, [
                 'choices' => [
