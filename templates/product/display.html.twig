@@ -92,12 +92,11 @@
 		</div>
 		
 		
-		<div class="p-5 text-center mb-100px
-		">
+		<div class="p-5 text-center mb-100px">
 				{% if previous >= 0 %}
-				<a href="{{ path('homepage', { offset: previous }) }}" class="btn btn-sm btn-secondary"><<</a>
+					<a href="{{ path('homepage', { offset: previous }) }}" class="btn btn-sm btn-secondary"><<</a>
 				{% endif %}
-				{# Il y a {{ products|length~' produit'~( products|length > 1 ? 's' : '') }} #}
+					Il y a {{ products|length~' produit'~( products|length > 1 ? 's' : '') }}
 				{% if next < products|length %}
 				<a href="{{ path('homepage', { offset: next }) }}" class="btn btn-sm btn-secondary">>></a>
 				{% endif %}

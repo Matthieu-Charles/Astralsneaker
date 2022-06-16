@@ -39,11 +39,13 @@ class ProductRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
     public const PAGINATOR_PER_PAGE_1 = 4;
+
     public const PAGINATOR_PER_PAGE_2 = 9;
 
 
-    public function getProductPaginator(int $paginatorPerPage, int $offset, string $name = null, string $brand = null, string $pricemini = null,  string $pricemaxi = null): Paginator
+    public function getProductPaginator(int $paginatorInt, int $offset, string $name = null, string $brand = null, string $pricemini = null,  string $pricemaxi = null): Paginator
     {
         $query = $this->createQueryBuilder('c');
 
@@ -73,7 +75,7 @@ class ProductRepository extends ServiceEntityRepository
 
         $query = $query->orderBy('c.name', 'DESC')
             // ->addorderBy('c.brand')
-            ->setMaxResults($paginatorPerPage)
+            ->setMaxResults($paginatorInt)
             ->setFirstResult($offset)
             ->getQuery();
 
