@@ -27,23 +27,6 @@
 						</div>
 					{% endfor %}
 
-					<h4 class="mt-5">Modèles</h4>
-					{% for key , name in names %}
-						{% if (brand_search) %}
-							{% if (key + 1 == brand_search) %}
-								<div class="form-check form-switch">
-									<input class="form-check-input" type="checkbox" role="switch" id="{{name}}" name="name_search" value="{{name}}" {{ (name == name_search ? 'checked') }}>
-									<label class="form-check-label" for={{name}}>{{name}}</label>
-								</div>
-							{% endif %}
-						{% else %}
-							<div class="form-check form-switch">
-								<input class="form-check-input" type="checkbox" role="switch" id="{{name}}" name="name_search" value="{{name}}" {{ (name == name_search ? 'checked') }}>
-								<label class="form-check-label" for={{name}}>{{name}}</label>
-							</div>
-						{% endif %}
-					{% endfor %}
-
 					<h4 class="mt-5">Prix</h4>
 
 					<div class="input-group mb-3">
