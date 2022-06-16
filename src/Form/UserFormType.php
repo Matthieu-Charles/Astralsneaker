@@ -32,23 +32,19 @@ class UserFormType extends AbstractType
                 ->add('email', EmailType::class, [
                     'label' => 'Email',
                     'disabled' => true
-                ])
-                ->add('password', PasswordType::class, [
-                    'label' => 'Mot de passe',
-                    'required' => true
                 ]);
         } else {
             $builder
                 ->add('email', EmailType::class, [
                     'label' => 'Email'
-                ])
-                ->add('password', PasswordType::class, [
-                    'label' => 'Mot de passe'
                 ]);
-        }
-
-
+            }
+            
+            
         $builder
+            ->add('password', PasswordType::class, [
+                'label' => 'Mot de passe'
+            ])
             ->add('lastName', TextType::class, [
                 'label' => 'Nom de famille'
             ])

@@ -5,56 +5,96 @@
 
 {% block body %}
 
-	
+
 	{# affichage des fiches produits #}
-	
-		<h2 class="mt-5 text-center">Découvrez la sneaker de vos rêves</h2>
-		<div class="border-bottom"></div>
+
+	<h2 class="mt-5 text-center">Découvrez la sneaker de vos rêves</h2>
+	<div class="border-bottom"></div>
 
 	<div class="container">
-			
-			<div class="row">
-				<div class="col-sm-2 mt-2">
-					<div>filtre 1</div>
-					<div>filtre 2</div>
-					<div>filtre 3</div>
-				</div>
-				
-				
-				<div class="row col-sm-10 mt-2">
-					{% for product in products %}
-				
+
+		<div class="row">
+
+			<div class="col-sm-2 mt-2">
+
+				<form class="my-5">
+
+					<h4>Marques</h4>
+					{% for key, brand in brands %}
+						<div class="form-check form-switch">
+							<input class="form-check-input" type="checkbox" role="switch" id="{{key}}" name="brand_search" value="{{key}}" {{ (key == brand_search ? 'checked') }}>
+							<label class="form-check-label" for={{key}}>{{brand}}</label>
+						</div>
+					{% endfor %}
+
+					<h4 class="mt-5">Modèles</h4>
+					{% for key , name in names %}
+						{% if (brand_search) %}
+							{% if (key + 1 == brand_search) %}
+								<div class="form-check form-switch">
+									<input class="form-check-input" type="checkbox" role="switch" id="{{name}}" name="name_search" value="{{name}}" {{ (name == name_search ? 'checked') }}>
+									<label class="form-check-label" for={{name}}>{{name}}</label>
+								</div>
+							{% endif %}
+						{% else %}
+							<div class="form-check form-switch">
+								<input class="form-check-input" type="checkbox" role="switch" id="{{name}}" name="name_search" value="{{name}}" {{ (name == name_search ? 'checked') }}>
+								<label class="form-check-label" for={{name}}>{{name}}</label>
+							</div>
+						{% endif %}
+					{% endfor %}
+
+					<h4 class="mt-5">Prix</h4>
+
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="mini">Mini</span>
+						<input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="mini">
+					</div>
+
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="maxi">Maxi</span>
+						<input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" name="maxi">
+					</div>
+					<button type="submit" class="btn btn-primary mt-3">Rechercher</button>
+
+				</form>
+			</div>
+
+
+			<div class="row col-sm-10 mt-2">
+
+				{% for product in products %}
+
 					<div class="col-4 p-3">
 						<div class="card h-100 rounded-0 border-0 shadow-sm">
 							<img src="{{ photourl ~ '/' ~ product.photoFileName}}" class="card-img-top" alt="...">
 							<div class="card-body">
+								<h4 class="card-title fs-5 fst-italic m">{{ product.getBrand() }}</h4>
 								<h5 class="card-title fs-3 fw-bold">{{ product.name }}</h5>
-								<p class="card-text">{{ product.description | u.truncate(50, "...")}} </p>
+								<p class="card-text">{{ product.description | u.truncate(50, "...")}}
+								</p>
 								<a href="{{path('productslist')}}" class="btn rounded-0 btn-secondary">Acheter</a>
 							</div>
-						<div class="card-footer d-flex justify-content-between">
-							<small class="text-muted py-auto">Stock : {{product.stock}}</small>
-							<small class="text-muted fs-3 fw-bold">{{product.price}}€</small>
-						</div>
+							<div class="card-footer d-flex justify-content-between">
+								<small class="text-muted py-auto">Stock :
+									{{product.stock}}</small>
+								<small class="text-muted fs-3 fw-bold">{{product.price}}€</small>
+							</div>
 						</div>
 					</div>
-					{% endfor %}
-				</div>
+				{% endfor %}
 			</div>
-			
-	</div>
-		
-		<div class="p-5 text-center mb-100px">
-				{% if previous >= 0 %}
-				<a href="{{ path('productslist', { offset: previous }) }}" class="btn btn-sm btn-secondary"><<</a>
-				{% endif %}
-				{# Il y a {{ products|length~' produit'~( products|length > 1 ? 's' : '') }} #}
-				{% if next < products|length %}
-				<a href="{{ path('productslist', { offset: next }) }}" class="btn btn-sm btn-secondary">>></a>
-				{% endif %}
 		</div>
-		
-	
+	</div>
 
+	<div class="p-5 text-center mb-100px">
+		{% if previous >= 0 %}
+			<a href="{{ path('productslist', { offset: previous }) }}" class="btn btn-sm btn-secondary"><<</a><ahref="{{path('productslist',{offset:next})}}"class="btnbtn-smbtn-secondary">>>
+			{% endif %}
+			{# Il y a {{ products|length~' produit'~( products|length > 1 ? 's' : '') }} #}
+			{% if next < products|length %}
+			</a>
+		{% endif %}
+	</div>
 
 {% endblock %}

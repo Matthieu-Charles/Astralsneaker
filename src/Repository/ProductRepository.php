@@ -39,21 +39,106 @@ class ProductRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public const PAGINATOR_PER_PAGE_1 = 4;
+    public const PAGINATOR_PER_PAGE_2 = 9;
 
-    public const PAGINATOR_PER_PAGE = 4;
 
-    public function getProductPaginator(int $offset): Paginator
+    public function getProductPaginator(int $paginatorPerPage, int $offset, string $name = null, string $brand = null, string $pricemini = null,  string $pricemaxi = null): Paginator
     {
-        $query = $this->createQueryBuilder('c')
-            // ->andWhere('c.product = :product')
-            // ->setParameter('product', $product)
-            // ->orderBy('c.name', 'DESC')
-            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+        $query = $this->createQueryBuilder('c');
+
+        if ($name) {
+            $query = $query
+                ->andWhere('c.name = :name')
+                ->setParameter('name', $name);
+        }
+
+        if ($brand) {
+            $query = $query
+                ->andWhere('c.brand = :brand')
+                ->setParameter('brand', $brand);
+        }
+
+        if ($pricemini) {
+            $query = $query
+                ->andWhere('c.price >= :pricemini')
+                ->setParameter('pricemini', $pricemini);
+        }
+
+        if ($pricemaxi) {
+            $query = $query
+                ->andWhere('c.price <= :pricemaxi')
+                ->setParameter('pricemaxi', $pricemaxi);
+        }
+
+        $query = $query->orderBy('c.name', 'DESC')
+            // ->addorderBy('c.brand')
+            ->setMaxResults($paginatorPerPage)
             ->setFirstResult($offset)
             ->getQuery();
 
         return new Paginator($query);
     }
+
+    public function getListName()
+    {
+        $names = [];
+        foreach ($this->createQueryBuilder('c')
+            ->select('c.name')
+            ->distinct(true)
+            ->orderBy('c.brand', 'ASC')
+            ->getQuery()
+            ->getResult() as $cols) {
+            $names[] = $cols['name'];
+        }
+
+        return $names;
+    }
+
+    // public function getListBrand()
+    // {
+    //     $brands = [];
+    //     foreach ($this->createQueryBuilder('c')
+    //         ->select('c.name', 'c.id')
+    //         ->distinct(true)
+    //         ->orderBy('c.id', 'ASC')
+    //         ->getQuery()
+    //         ->getResult() as $cols) {
+    //         $brands[$cols['id']] = $cols['name'];
+    //     }
+
+    //     return $brands;
+    // }
+
+
+    public function getListPrice()
+    {
+        $prices = [];
+        foreach ($this->createQueryBuilder('c')
+            ->select('c.price')
+            ->distinct(true)
+            ->orderBy('c.price', 'ASC')
+            ->getQuery()
+            ->getResult() as $cols) {
+            $prices[] = $cols['price'];
+        }
+
+        return $prices;
+    }
+
+    // public function getListBrand()
+    // {
+    //     $brands = [];
+    //     foreach ($this->createQueryBuilder('c')
+    //         ->select('c.')
+    //         ->distinct(true)
+    //         ->orderBy('c.year', 'ASC')
+    //         ->getQuery()
+    //         ->getResult() as $cols) {
+    //         $brands[] = $cols['brand'];
+    //     }
+    //     return $brands;
+    // }
 
     //    /**
     //     * @return Product[] Returns an array of Product objects

@@ -31,8 +31,6 @@ class UserController extends AbstractController
 
         if ($handle) return $handle;
 
-        var_dump($handle);
-
         return $this->render('user/index.html.twig', [
             'form_user' => $form->createView(),
             'title' => 'Créer un compte',
@@ -52,8 +50,6 @@ class UserController extends AbstractController
        $handle =  UserController::handleRequest($form, $request, $user, $useRepo, $passwordHasher);
 
         if ($handle) return $handle;
-
-        var_dump($handle);
 
         return $this->render('user/index.html.twig', [
             'form_user' => $form->createView(),
