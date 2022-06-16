@@ -82,6 +82,19 @@ class ProductRepository extends ServiceEntityRepository
         return new Paginator($query);
     }
 
+    public function getOneProductPaginator(int $paginatorInt, Product $product , int $offset): Paginator
+    {
+        $query = $this->createQueryBuilder('c')
+        ->andWhere('c.id = :product')
+        ->setParameter('product', $product)
+        ->orderBy('c.name', 'DESC')
+        ->setMaxResults($paginatorInt)
+        ->setFirstResult($offset)
+        ->getQuery();
+
+        return new Paginator($query);
+    }
+
     public function getListName()
     {
         $names = [];

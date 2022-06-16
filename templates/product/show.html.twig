@@ -73,7 +73,9 @@
 								<h5 class="card-title fs-3 fw-bold">{{ product.name }}</h5>
 								<p class="card-text">{{ product.description | u.truncate(50, "...")}}
 								</p>
-								<a href="{{path('productslist')}}" class="btn rounded-0 btn-secondary">Acheter</a>
+								<a href="" class="btn rounded-0 btn-secondary"><i class="bi bi-cart"></i></a>
+								<a href="" class="btn rounded-0 btn-secondary">Acheter</a>
+								<a href="{{path('singleProduct', {id: product.id})}}" class="btn rounded-0 btn-secondary"><i class="bi bi-info-circle"></i></a>		
 							</div>
 							<div class="card-footer d-flex justify-content-between">
 								<small class="text-muted py-auto">Stock :
