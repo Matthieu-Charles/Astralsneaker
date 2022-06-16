@@ -126,7 +126,7 @@ class ProductController extends AbstractController
 
             $productRepo->add($product, true);
 
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_product');
         }
 
         return $this->render('product/index.html.twig', [
