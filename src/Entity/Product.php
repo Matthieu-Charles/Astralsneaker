@@ -19,9 +19,6 @@ class Product
     #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\Column(type: 'smallint')]
-    private $size;
-
     #[ORM\Column(type: 'float')]
     private $price;
 
@@ -34,6 +31,9 @@ class Product
     #[ORM\ManyToOne(targetEntity: Brand::class, inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private $brand;
+
+    #[ORM\ManyToOne(targetEntity: Size::class, inversedBy: 'products')]
+    private $size;
 
     public function getId(): ?int
     {
@@ -60,18 +60,6 @@ class Product
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getSize(): ?int
-    {
-        return $this->size;
-    }
-
-    public function setSize(int $size): self
-    {
-        $this->size = $size;
 
         return $this;
     }
@@ -120,6 +108,18 @@ class Product
     public function setBrand(?Brand $brand): self
     {
         $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getSize(): ?Size
+    {
+        return $this->size;
+    }
+
+    public function setSize(?Size $size): self
+    {
+        $this->size = $size;
 
         return $this;
     }
