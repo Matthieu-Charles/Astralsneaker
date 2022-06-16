@@ -42,25 +42,19 @@ class ProductController extends AbstractController
         $paginatorInt = 9;
 
         $brands = $brandRepo->getListBrand();
-        $brand_search = $request->query->get('brand_search', '');
+        $brand_search = $request->query->all('brand_search', '');
 
-        $names = $productRepo->getListName();
-        $name_search = $request->query->get('name_search', '');
-
-        $prices = $productRepo->getListPrice();
         $price_mini = $request->query->get('mini', '');
         $price_maxi = $request->query->get('maxi', '');
 
         $offset = max(0, $request->query->getInt('offset', 0));
-        $paginator = $productRepo->getProductPaginator($paginatorInt, $offset, $name_search, $brand_search, $price_mini, $price_maxi);
+        $paginator = $productRepo->getProductPaginator($paginatorInt, $offset, $brand_search, $price_mini, $price_maxi);
 
         return $this->render('product/show.html.twig', [
             'brand_search' => $brand_search,
             'brands' => $brands,
             'price_maxi' => $price_maxi,
             'price_mini' => $price_mini,
-            'name_search' => $name_search,
-            'names' => $names,
             'photourl' => $photoUrl,
             'photourlcar' => $photoUrlCar,
             'products' => $paginator,

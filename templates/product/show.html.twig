@@ -5,7 +5,6 @@
 
 {% block body %}
 
-
 	{# affichage des fiches produits #}
 
 	<h2 class="mt-5 text-center">Découvrez la sneaker de vos rêves</h2>
@@ -22,7 +21,10 @@
 					<h4>Marques</h4>
 					{% for key, brand in brands %}
 						<div class="form-check form-switch">
-							<input class="form-check-input" type="checkbox" role="switch" id="{{key}}" name="brand_search" value="{{key}}" {{ (key == brand_search ? 'checked') }}>
+							<input class="form-check-input" type="checkbox" role="switch" id="{{key}}" name="brand_search[]" value="{{key}}" 
+							{% if key in brand_search %}
+								checked
+							{% endif %}>
 							<label class="form-check-label" for={{key}}>{{brand}}</label>
 						</div>
 					{% endfor %}
@@ -30,13 +32,13 @@
 					<h4 class="mt-5">Prix</h4>
 
 					<div class="input-group mb-3">
-						<span class="input-group-text" id="mini">Mini</span>
-						<input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="mini">
+						<span class="input-group-text" id="mini">Min</span>
+						<input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="mini" value="{{price_mini ? price_mini : 0}}">
 					</div>
 
 					<div class="input-group mb-3">
-						<span class="input-group-text" id="maxi">Maxi</span>
-						<input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" name="maxi">
+						<span class="input-group-text" id="maxi">Max</span>
+						<input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" name="maxi"value="{{price_maxi ? price_maxi : 1000}}">
 					</div>
 					<button type="submit" class="btn btn-primary mt-3">Rechercher</button>
 
