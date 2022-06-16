@@ -12,19 +12,19 @@
 {% endblock %}
 {% block body %}
 	<div class="card">
-		<h2 class="text-center">Contactez nous</h2>
+		<h2 class="text-center mb-2">Contactez nous</h2>
 		<div class="container d-flex row justify-content-center align-items-center">
 
 			<div class="contact d-flex row col-6 justify-content-center align-items-center">
 				<div class="form-group row">
 					<label for="Nom" class="col-auto col-form-label">Nom</label>
-					<input type="password" class="form-control" id="inputPassword" placeholder="Nom">
+					<input type="text" class="form-control" placeholder="Nom">
 				</div>
 
 
 				<div class="form-group row">
 					<label for="Prénom" class="col-auto col-form-label">Prénom</label>
-					<input type="password" class="form-control" id="inputPassword" placeholder="Prénom">
+					<input type="text" class="form-control" placeholder="Prénom">
 				</div>
 
 
@@ -33,11 +33,6 @@
 					<input type="email" class="form-control" id="email" placeholder="Email">
 				</div>
 
-
-				<div class="form-group row">
-					<label for="inputPassword" class="col-auto col-form-label">Password</label>
-					<input type="password" class="form-control" id="inputPassword" placeholder="Password">
-				</div>
 
 				<div class="form-group d-flex row justify-content-center">
 					<div class="col-auto">
@@ -57,8 +52,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 maxZoom: 19,
 attribution: '© OpenStreetMap'
 }).addTo(maCarte);
-var marqueur = L.marker([43.6109200, 3.8772300]).addTo(maCarte);
-marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 		</script>
 		<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
 	{% endblock %}
