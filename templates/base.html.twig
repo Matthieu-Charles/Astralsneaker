@@ -27,18 +27,21 @@
 				<div class="row d-flex ">
 					
 					<div class="col-2 d-flex align-items-center">
-						<input class="form-control form-control-sm mx-2" type="text" placeholder="" aria-label=".form-control-sm example">
-						<button type="button" class="btn btn-danger btn-sm ">
-							<i class="bi bi-search"></i>
-						</button>
+						<form method="get" action="{{path('productslist')}}">
+							<input class="form-control form-control-sm mx-2" type="text" name="name_search" placeholder="recherchez un produit" aria-label=".form-control-sm example">
+							<button type="submit" class="btn btn-danger btn-sm ">
+								<i class="bi bi-search"></i>
+							</button>
+						</form>
 					</div>
 					<div class="col-8 text-center">
 						<h2 class="fw-bold text-white">ASTRAL SNEAKER</h2>
 					</div>
 					<div class="col-2 d-flex align-items-center">
-						<button type="button" class="btn btn-danger btn-sm">
-							<i class="bi bi-cart-fill"></i>
-						</button>
+							<button type="button" class="btn btn-danger btn-sm">
+								<i class="bi bi-cart-fill"></i>
+							</button>
+						
 
 						{% if is_granted('ROLE_USER') %}
 							<div class="btn-group mx-2">

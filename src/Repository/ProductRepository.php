@@ -45,15 +45,20 @@ class ProductRepository extends ServiceEntityRepository
     public const PAGINATOR_PER_PAGE_2 = 9;
 
 
-    public function getProductPaginator(int $paginatorInt, int $offset, array $brands = null, string $pricemini = null,  string $pricemaxi = null): Paginator
+    public function getProductPaginator(int $paginatorInt, int $offset, string $name_search = null, $brands = null, string $pricemini = null,  string $pricemaxi = null): Paginator
     {
+        $query = $this->createQueryBuilder('c');
+
+        if ($name_search) {
+            $query = $query
+                    ->andWhere('c.description LIKE :name_search')
+                    ->orWhere('c.name LIKE :name_search')
+                    ->setParameter('name_search', '%'.$name_search.'%');
+        }
 
         if ($pricemini > $pricemaxi) {
             [$pricemini, $pricemaxi] = [$pricemaxi, $pricemini];
         }
-
-        $query = $this->createQueryBuilder('c');
-
 
         if ($brands) {
                 $query = $query
@@ -74,7 +79,6 @@ class ProductRepository extends ServiceEntityRepository
         }
 
         $query = $query->orderBy('c.name', 'DESC')
-            // ->addorderBy('c.brand')
             ->setMaxResults($paginatorInt)
             ->setFirstResult($offset)
             ->getQuery();
