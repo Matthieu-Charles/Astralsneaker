@@ -3,6 +3,31 @@
   background-color: rgb(16, 28, 106) !important;
 }
 
+.btn-primary {
+  --bs-bg-opacity: 1;
+  background-color: rgb(16, 28, 106) !important;
+}
+
+.brand-title {
+  color : #dc3545;
+}
+
+.model-title {
+  color : black;
+}
+
+.bi-info-circle{
+  color : black;
+}
+
+p {
+  font-size:smaller;
+}
+
+.card-footer-text{
+  color : white !important;
+}
+
 .bg-danger {
   --bs-bg-opacity: 1;
   background-color: rgb(123, 123, 123) !important;
@@ -20,11 +45,11 @@
   max-height: 700px;
 }
 
-h5 {
+/* h5 {
   color: rgb(237, 120, 11) !important;
   font-size: xx-large !important;
   font-weight: bold;
-}
+} */
 
 a {
   text-decoration: none;
