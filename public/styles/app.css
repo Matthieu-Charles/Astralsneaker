@@ -65,3 +65,18 @@ a {
 header {
   height: 75px !important;
 }
+
+
+.img-product {
+  max-width:550px;
+}
+
+.bi-c-pr{
+  color: green !important;
+}
+
+.bg-image{
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

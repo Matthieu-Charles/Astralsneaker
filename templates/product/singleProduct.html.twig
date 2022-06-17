@@ -8,47 +8,59 @@
   <div class="container my-4">
     <div class="card">
       <div class="card-body">
+
         <div class="row mt-5">
           <div class="col-lg-6">
-            <div class="white-box text-center mb-5">
+            <div class="white-box text-center">
               <img src="{{ photourl ~ '/' ~ product.photoFileName }}"
-                class="img-responsive" />
+                class="img-product rounded shadow" />
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 my-auto">
+            <h6 class="card-subtitle fst-italic brand-title">
+              {{ product.brand }}
+            </h6>
             <h3 class="card-title fs-1 fw-bold">
               {{ product.name }}
             </h3>
-            <h6 class="card-subtitle fs-italic">
-              {{ product.brand }}
-            </h6>
             <h2 class="m fs-1">
               {{ product.price }}€
             </h2>
-            <button class="btn btn-dark btn-rounded mr-1"
-              data-toggle="tooltip"
-              title=""
-              data-original-title="Add to cart">
-              <i class="bi bi-cart"></i>
-            </button>
-            <button class="btn btn-primary btn-rounded">Acheter</button>
-            <h4 class="box-title mt-3">
-              Description
-            </h4>
-            <p>
-              {{ product.description }}
-            </p>
-            <h3 class="box-title mt-3">
-              Points-clés
-            </h3>
-            <ul class="list-unstyled">
-              <li><i class="bi bi-check-circle"></i> Cuir de Normandie</li>
-              <li><i class="bi bi-check-circle"></i> Conçue en France</li>
-              <li><i class="bi bi-check-circle"></i> Garantie à vie*</li>
-            </ul>
+            <div class="mt-3">
+              <button class="btn btn-dark btn-rounded"
+                data-toggle="tooltip"
+                title=""
+                data-original-title="Add to cart">
+                <i class="bi bi-cart"></i>
+              </button>
+              <button class="btn btn-primary btn-rounded">Acheter</button>
+            </div>
           </div>
         </div>
+
+        <div class="row mx-4 my-5 pt-4 border-top">
+          <div class="col-lg-8">
+            <h4 class="box-title my-3">
+              Description
+            </h4>
+            <div class="pe-5">            
+                {{ product.description | raw}}
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <h5 class="box-title mt-3">
+              Points-clés
+            </h5>
+            <ul class="list-unstyled">
+              <li><i class="bi bi-check-circle bi-c-pr"></i> Cuir de Normandie</li>
+              <li><i class="bi bi-check-circle bi-c-pr"></i> Conçue en France</li>
+              <li><i class="bi bi-check-circle bi-c-pr"></i> Garantie à vie*</li>
+            </ul>
+            </div>
+        </div>
+
       </div>
     </div>
   </div>
+
 {% endblock %}
