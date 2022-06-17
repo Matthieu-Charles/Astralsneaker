@@ -11,17 +11,16 @@
         <div class="row mt-5">
           <div class="col-lg-6">
             <div class="white-box text-center mb-5">
-              <img src="https://via.placeholder.com/400x400/00CED1/000000"
-              {# {{ photourl ~ '/' ~ product.photoFileName}} #}
+              <img src="{{ photourl ~ '/' ~ product.photoFileName }}"
                 class="img-responsive" />
             </div>
           </div>
           <div class="col-lg-6">
             <h3 class="card-title fs-1 fw-bold">
-            {{ product.name }}
+              {{ product.name }}
             </h3>
             <h6 class="card-subtitle fs-italic">
-            {{ product.brand }}
+              {{ product.brand }}
             </h6>
             <h2 class="m fs-1">
               {{ product.price }}€
@@ -44,12 +43,8 @@
             </h3>
             <ul class="list-unstyled">
               <li><i class="bi bi-check-circle"></i> Cuir de Normandie</li>
-              <li>
-                <i class="bi bi-check-circle"></i> Conçue en France
-              </li>
-              <li>
-                <i class="bi bi-check-circle"></i> Garantie à vie*
-              </li>
+              <li><i class="bi bi-check-circle"></i> Conçue en France</li>
+              <li><i class="bi bi-check-circle"></i> Garantie à vie*</li>
             </ul>
           </div>
         </div>

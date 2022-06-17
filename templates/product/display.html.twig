@@ -79,7 +79,9 @@
 					<img src="{{ photourl ~ '/' ~ product.photoFileName}}" class="card-img-top" alt="...">
 					<div class="card-body">
 						<h5 class="card-title fs-2 fw-bold">{{ product.name }}</h5>
-						<p class="card-text">{{ product.description | u.truncate(50, "...")}} </p>
+						<p class="card-text">{{(product.description|striptags| u.truncate(100, "..."))|raw}} 
+
+ </p>
 						<a href="#" class="btn rounded-0 btn-secondary">Acheter</a>
 					</div>
 				<div class="card-footer d-flex justify-content-between">

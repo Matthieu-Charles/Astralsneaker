@@ -57,7 +57,7 @@ class ProductRepository extends ServiceEntityRepository
 
         if ($brands) {
                 $query = $query
-                    ->orWhere('c.brand in (:brands)')
+                    ->andWhere('c.brand in (:brands)')
                     ->setParameter('brands', $brands);
         }
 
@@ -110,22 +110,6 @@ class ProductRepository extends ServiceEntityRepository
         return $names;
     }
 
-    // public function getListBrand()
-    // {
-    //     $brands = [];
-    //     foreach ($this->createQueryBuilder('c')
-    //         ->select('c.name', 'c.id')
-    //         ->distinct(true)
-    //         ->orderBy('c.id', 'ASC')
-    //         ->getQuery()
-    //         ->getResult() as $cols) {
-    //         $brands[$cols['id']] = $cols['name'];
-    //     }
-
-    //     return $brands;
-    // }
-
-
     public function getListPrice()
     {
         $prices = [];
@@ -140,43 +124,4 @@ class ProductRepository extends ServiceEntityRepository
 
         return $prices;
     }
-
-    // public function getListBrand()
-    // {
-    //     $brands = [];
-    //     foreach ($this->createQueryBuilder('c')
-    //         ->select('c.')
-    //         ->distinct(true)
-    //         ->orderBy('c.year', 'ASC')
-    //         ->getQuery()
-    //         ->getResult() as $cols) {
-    //         $brands[] = $cols['brand'];
-    //     }
-    //     return $brands;
-    // }
-
-    //    /**
-    //     * @return Product[] Returns an array of Product objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Product
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }
