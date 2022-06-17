@@ -51,9 +51,9 @@
 				{% for product in products %}
 
 					<div class="col-4 p-3">
-						<div class="card h-100 rounded-4 border-4 shadow-md">
+						<div class="card h-100 rounded border-0 shadow">
 							<img src="{{ photourl ~ '/' ~ product.photoFileName}}" class="card-img-top" alt="...">
-							<div class="card-body">
+							<div class="card-body bg-p">
 								<h6 class="card-title fst-italic brand-title">{{ product.getBrand() }}</h6>
 								<h5 class="card-title fw-bold model-title">{{ product.name }}</h5>
 								<p class="card-text description-text">{{(product.description|striptags| u.truncate(100, "..."))|raw}}</p>

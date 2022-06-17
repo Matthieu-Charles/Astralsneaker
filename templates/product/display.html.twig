@@ -5,7 +5,7 @@
 
 {% block body %}
 
-			<div id="carouselExampleDark" class="carousel carousel-dark slide mt-5" data-bs-ride="carousel">
+			<div id="carouselExampleDark" class="carousel carousel-dark slide mt-5 shadow" data-bs-ride="carousel">
 			  <div class="carousel-indicators">
 			    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 			    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -46,25 +46,30 @@
 		
 		{# affichage des fiches produits #}
 	
-		<h2 class="mt-5 text-center">Meilleures ventes</h2>
+		<h2 class="mt-5 text-center ">Meilleures ventes</h2>
 		<div class="border-bottom"></div>
 		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mt-2">
 			{% for product in products %}
 		
 			<div class="col p-3">
-				<div class="card h-100 rounded-0 border-0 shadow-sm">
-					<img src="{{ photourl ~ '/' ~ product.photoFileName}}" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title fs-2 fw-bold">{{ product.name }}</h5>
-						<p class="card-text">{{(product.description|striptags| u.truncate(100, "..."))|raw}}</p>
-						<a href="#" class="btn rounded-0 btn-secondary">Acheter</a>
+						<div class="card h-100 rounded border-0 shadow">
+							<img src="{{ photourl ~ '/' ~ product.photoFileName}}" class="card-img-top" alt="...">
+							<div class="card-body bg-p">
+								<h6 class="card-title fst-italic brand-title">{{ product.getBrand() }}</h6>
+								<h5 class="card-title fw-bold model-title">{{ product.name }}</h5>
+								<p class="card-text description-text">{{(product.description|striptags| u.truncate(100, "..."))|raw}}</p>
+							</div>
+							<div class="card-footer d-flex justify-content-end bg-white border-top-0 align-items-center mb-2 mr-2">
+									<a href="{{path('singleProduct', {id: product.id})}}" class="mx-2"><i class="bi bi-info-circle"></i></a>
+									<a href="" class="btn rounded-2 btn-dark btn-md"><i class="bi bi-cart"></i></a>
+									<a href="" class="btn rounded-2 btn-primary btn-md m-1">Acheter</a>
+							</div>
+							<div class="card-footer d-flex justify-content-between align-items-center bg-primary">
+								<small class="text-muted py-auto card-footer-text">Stock :{{product.stock}}</small>
+								<small class="text-muted fs-3 fw-bold card-footer-text">{{product.price}}€</small>
+							</div>
+						</div>
 					</div>
-				<div class="card-footer d-flex justify-content-between">
-					<small class="text-muted py-auto">Stock : {{product.stock}}</small>
-					<small class="text-muted fs-3 fw-bold">{{product.price}}€</small>
-				</div>
-				</div>
-			</div>
 			{% endfor %}
 		</div>
 		
