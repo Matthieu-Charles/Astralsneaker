@@ -32,7 +32,7 @@
             <form>
                 <div>
                     <label for="size_search" class="me-2 fst-italic">Pointure</label>
-                    <select class="form-select form-select-sm"   style="width: 70px" id="size_search" aria-label=".form-select-sm example" name="size_search">
+                    <select class="form-select form-select-sm"   style="width: 70px" id="size_search" aria-label=".form-select-sm example" name="size_search" required>
                     {% for size in sizes %}
                       <option value="{{size}}" {{size == size_search ? 'selected' : null}}>{{size}}</option>
                     {% endfor %}
