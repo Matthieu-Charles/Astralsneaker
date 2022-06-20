@@ -22,103 +22,107 @@
 	</head>
 	<body class="d-flex flex-column">
 
-		<header class="sticky-top container-fluid bg-primary d-flex align-items-center pt-2 px-0 mx-0 h-50">
-			<div class="row d-flex container-fluid p-0 m-0">
-				<div class="col-sm-12 container align-items-center">
-					<div class="row d-flex ">
-						<div class="col-3 d-flex align-items-center">
-							<form method="get" action="{{path('productslist')}}">
-								<div class="row">
-									<div class="col-lg-10 col-sm">
-										<input class="form-control form-control-sm mx-2" type="text" name="name_search" placeholder="chercher un produit" value="" aria-label=".form-control-sm example">
-									</div>
-									<div class="col-lg-2">
-										<button type="submit" class="btn btn-danger btn-sm ">
-											<i class="bi bi-search"></i>
+		<header class="sticky-top container-fluid d-flex align-items-center px-0 mx-0 h-75">
+				<div class="row d-flex container-fluid bg-primary p-0 m-0">
+					<div class="container">
+						<div class="col-sm-12 container align-items-center p-0 m-auto">
+							<div class="row d-flex justify-content-between py-1">
+								<div class="col-xs-6 col-md-4 d-flex align-items-center">
+									<form method="get" action="{{path('productslist')}}">
+										<div class="row">
+											<div class="col-8 col-lg-10 col-sm">
+												<input class="form-control form-control-sm mx-2" type="text" name="name_search" placeholder="chercher un produit" value="" aria-label=".form-control-sm example">
+											</div>
+											<div class="col-4 col-lg-2">
+												<button type="submit" class="btn btn-danger btn-sm ">
+													<i class="bi bi-search"></i>
+												</button>
+											</div>
+										</div>
+									</form>
+								</div>
+								<div class="col-md-4 d-none d-xl-block text-center">
+									<h2 class="fw-bold text-white">ASTRAL SNEAKER</h2>
+								</div>
+								<div class="col-xs-6 col-md-4 d-flex align-items-center justify-content-end">
+										<button type="button" class="btn btn-danger btn-sm">
+											<i class="bi bi-cart-fill"></i>
 										</button>
-									</div>
+									{% if is_granted('ROLE_USER') %}
+										<div class="btn-group mx-2">
+											<button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+												Mon compte
+											</button>
+											<ul class="dropdown-menu">
+												<li>
+													<a class="dropdown-item" href="{{path('update_user')}}">Mes informations</a>
+												</li>
+												<li>
+													<a class="dropdown-item" href="#">Mes commandes</a>
+												</li>
+												<li>
+													<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
+												</li>
+											</ul>
+										</div>
+									{% else %}
+										<button type="button" class="btn btn-danger btn-sm fw-bold mx-2">
+											<a class="link-light text-decoration-none" href="{{ path('app_login')}}">Se connecter</a>
+										</button>
+									{% endif %}
+									{% if is_granted('ROLE_ADMIN') %}
+										<div class="btn-group">
+											<button type="button" class="btn btn-sm btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+												Administration
+											</button>
+											<ul class="dropdown-menu">
+												<li>
+													<a class="dropdown-item" href="#">Commandes</a>
+												</li>
+												<li>
+													<a class="dropdown-item" href="{{path('app_product')}}">Ajouter produit</a>
+												</li>
+											</ul>
+										</div>
+									{% endif %}
 								</div>
-							</form>
+							</div>
 						</div>
-						<div class="col-6 text-center">
-							<h2 class="fw-bold text-white">ASTRAL SNEAKER</h2>
-						</div>
-						<div class="col-3 d-flex align-items-center">
-								<button type="button" class="btn btn-danger btn-sm">
-									<i class="bi bi-cart-fill"></i>
+					</div>
+		
+					<div class="container p-0 m-0">
+						<nav class="col-sm-12 navbar navbar-expand-lg navbar-dark bg-dark align-items-center m-0 p-0">
+							<div class="container-fluid align-items-center w-75 m-auto">
+								<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="navbar-toggler-icon"></span>
 								</button>
-							{% if is_granted('ROLE_USER') %}
-								<div class="btn-group mx-2">
-									<button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-										Mon compte
-									</button>
-									<ul class="dropdown-menu">
-										<li>
-											<a class="dropdown-item" href="{{path('update_user')}}">Mes informations</a>
-										</li>
-										<li>
-											<a class="dropdown-item" href="#">Mes commandes</a>
-										</li>
-										<li>
-											<a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a>
-										</li>
+								<div class="collapse navbar-collapse justify-content-center " id="navbarNavDropdown">
+								<ul class="navbar-nav">
+									<li class="nav-item">
+									<a class="nav-link" aria-current="page" href="{{path('homepage')}}">Accueil</a>
+									</li>
+									<li class="nav-item">
+									<a class="nav-link" href="{{path('productslist')}}">Nos produits</a>
+									</li>
+									<li class="nav-item">
+									<a class="nav-link" href="{{path('contact')}}">Contactez-nous</a>
+									</li>
+									{# <li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										Dropdown link
+									</a>
+									<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+										<li><a class="dropdown-item" href="#">Action</a></li>
+										<li><a class="dropdown-item" href="#">Another action</a></li>
+										<li><a class="dropdown-item" href="#">Something else here</a></li>
 									</ul>
+									</li> #}
+								</ul>
 								</div>
-							{% else %}
-								<button type="button" class="btn btn-danger btn-sm fw-bold mx-2">
-									<a class="link-light text-decoration-none" href="{{ path('app_login')}}">Se connecter</a>
-								</button>
-							{% endif %}
-							{% if is_granted('ROLE_ADMIN') %}
-								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-										Administration
-									</button>
-									<ul class="dropdown-menu">
-										<li>
-											<a class="dropdown-item" href="#">Commandes</a>
-										</li>
-										<li>
-											<a class="dropdown-item" href="{{path('app_product')}}">Ajouter produit</a>
-										</li>
-									</ul>
-								</div>
-							{% endif %}
-						</div>
+							</div>
+						</nav>
 					</div>
 				</div>
-	
-				<nav class="col-sm-12 navbar navbar-expand-lg navbar-dark bg-dark align-items-center m-0 p-0">
-					<div class="container-fluid">
-						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-						</button>
-						<div class="collapse navbar-collapse" id="navbarNavDropdown">
-						<ul class="navbar-nav">
-							<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="{{path('homepage')}}">Accueil</a>
-							</li>
-							<li class="nav-item">
-							<a class="nav-link" href="{{path('productslist')}}">Nos produits</a>
-							</li>
-							<li class="nav-item">
-							<a class="nav-link" href="{{path('contact')}}">Contactez-nous</a>
-							</li>
-							{# <li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Dropdown link
-							</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<li><a class="dropdown-item" href="#">Action</a></li>
-								<li><a class="dropdown-item" href="#">Another action</a></li>
-								<li><a class="dropdown-item" href="#">Something else here</a></li>
-							</ul>
-							</li> #}
-						</ul>
-						</div>
-					</div>
-				</nav>
-			</div>
 		</header>
 
 		<div class="container flex-grow-1 my-4"> {% block body %}{% endblock %}
