@@ -51,6 +51,9 @@
 
 					<div class="col-lg-4 p-3">
 						<div class="card h-100 rounded border-0 shadow">
+							{% if product.stock < 10 %}
+							<div class="position-absolute px-2 mt-3 bg-danger shadow rounded-end text-white">Plus que {{product.stock}} ex. en stock!</div>
+							{% endif %}
 							<img src="{{ photourl ~ '/' ~ product.photoFileName}}" class="card-img-top" alt="...">
 							<div class="card-body bg-p">
 								<h6 class="card-title fst-italic brand-title">{{ product.getBrand() }}</h6>
@@ -81,22 +84,22 @@
 						</div>
 					</div>
 				{% endfor %}
+				<div class="p-5 text-center mb-100px">
+
+						{% if previous >= 0 %}
+							<a href="{{ path('productslist', {offset: previous }) }}" class="btn btn-sm btn-secondary"><<</a>
+						{% endif %}
+
+						Il y a {{products|length~' produit'~(products|length>1?'s':'')}}
+
+						{% if next < products|length %}
+							<a href="{{ path('productslist', {offset: next }) }}" class="btn btn-sm btn-secondary">>></a>
+						{% endif %}
+
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="p-5 text-center mb-100px">
-
-			{% if previous >= 0 %}
-				<a href="{{ path('productslist', {offset: previous }) }}" class="btn btn-sm btn-secondary"><<</a>
-			{% endif %}
-
-			Il y a {{products|length~' produit'~(products|length>1?'s':'')}}
-
-			{% if next < products|length %}
-				<a href="{{ path('productslist', {offset: next }) }}" class="btn btn-sm btn-secondary">>></a>
-			{% endif %}
-
-	</div>
 
 {% endblock %}

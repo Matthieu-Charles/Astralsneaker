@@ -8,7 +8,7 @@
   background-color: rgb(16, 28, 106) !important;
 }
 
-.brand-title {
+.brand-title, .last_ones {
   color : #dc3545;
 }
 
@@ -30,8 +30,10 @@ p {
 
 .bg-danger {
   --bs-bg-opacity: 1;
-  background-color: rgb(123, 123, 123) !important;
+  background-color : #dc3545 !important;
 }
+
+/* background-color: rgb(123, 123, 123) !important; */
 
 /* #carouselExampleDark {
   width: 100%;
