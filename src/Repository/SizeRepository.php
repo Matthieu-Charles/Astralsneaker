@@ -39,6 +39,22 @@ class SizeRepository extends ServiceEntityRepository
         }
     }
 
+    public function getListSize()
+    {
+        $sizes = [];
+        foreach ($this->createQueryBuilder('c')
+            ->select('c.size')
+            ->distinct(true)
+            ->orderBy('c.size', 'ASC')
+            ->getQuery()
+            ->getResult() as $cols) {
+            $sizes[] = $cols['size'];
+        }
+
+        return $sizes;
+    }
+
+
 //    /**
 //     * @return Size[] Returns an array of Size objects
 //     */

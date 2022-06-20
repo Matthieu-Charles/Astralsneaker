@@ -7,6 +7,7 @@ use App\Entity\Product;
 use App\Form\ProductFormType;
 use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
+use App\Repository\SizeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,11 +36,11 @@ class ProductController extends AbstractController
     }
 
     #[Route('/productslist', name: 'productslist')]
-    public function show(BrandRepository $brandRepo, ProductRepository $productRepo, Request $request, String $photoUrl, String $photoUrlCar): Response
+    public function show(SizeRepository $sizeRepo, BrandRepository $brandRepo, ProductRepository $productRepo, Request $request, String $photoUrl, String $photoUrlCar): Response
     {
-        // $brands = ['adidas', 'nike', 'puma', 'reebok'];
-        // $brandsId = $brandRepo->getListBrandId();
         $paginatorInt = 9;
+
+        $sizes = $sizeRepo->getListSize();
 
         $brands = $brandRepo->getListBrand();
         $brand_search = $request->query->all('brand_search', '');
@@ -53,6 +54,7 @@ class ProductController extends AbstractController
         $paginator = $productRepo->getProductPaginator($paginatorInt, $offset, $name_search, $brand_search, $price_mini, $price_maxi);
 
         return $this->render('product/show.html.twig', [
+            'sizes' => $sizes,
             'name_search' => $name_search,
             'brand_search' => $brand_search,
             'brands' => $brands,
@@ -68,9 +70,15 @@ class ProductController extends AbstractController
 
 
     #[Route('/product/{id}', name: 'singleProduct')]
-    public function singleProduct(Product $product, String $photoUrl, String $photoUrlCar): Response
+    public function singleProduct(Request $request, SizeRepository $sizeRepo, Product $product, String $photoUrl, String $photoUrlCar): Response
     {
+        $sizes = $sizeRepo->getListSize();
+
+        $size_search = $request->query->get('size_search', '');
+
         return $this->render('product/singleProduct.html.twig', [
+            'size_search' => $size_search,
+            'sizes' => $sizes,
             'product' => $product,
             'photourl' => $photoUrl,
             'photourlcar' => $photoUrlCar,

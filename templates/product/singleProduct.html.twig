@@ -26,15 +26,27 @@
             <h2 class="m fs-1">
               {{ product.price }}€
             </h2>
-            <div class="mt-3">
-              <button class="btn btn-dark btn-rounded"
-                data-toggle="tooltip"
-                title=""
-                data-original-title="Add to cart">
-                <i class="bi bi-cart"></i>
-              </button>
-              <button class="btn btn-primary btn-rounded">Acheter</button>
-            </div>
+            <form>
+                <div>
+                    <label for="size_search" class="me-2 fst-italic">Pointure</label>
+                    <select class="form-select form-select-sm"   style="width: 70px" id="size_search" aria-label=".form-select-sm example" name="size_search">
+                    {% for size in sizes %}
+                      <option value="{{size}}" {{size == size_search ? 'selected' : null}}>{{size}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="mt-3">
+                  <button class="btn btn-dark btn-rounded"
+                    type="submit"
+                    formaction="{{ path('homepage')}}"
+                    data-toggle="tooltip"
+                    title=""
+                    data-original-title="Add to cart">
+                    <i class="bi bi-cart"></i>
+                  </button>
+                  <button class="btn btn-primary btn-rounded" type="submit" formaction="{{ path('productslist')}}">Acheter</button>
+                </div>
+              </form>
           </div>
         </div>
 

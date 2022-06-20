@@ -78,7 +78,7 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('pricemaxi', $pricemaxi);
         }
 
-        $query = $query->orderBy('c.name', 'DESC')
+        $query = $query->orderBy('c.price')
             ->setMaxResults($paginatorInt)
             ->setFirstResult($offset)
             ->getQuery();
