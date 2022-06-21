@@ -33,6 +33,10 @@ p {
   background-color : #dc3545 !important;
 }
 
+#login-div {
+  max-width: 600px;
+}
+
 /* background-color: rgb(123, 123, 123) !important; */
 
 /* #carouselExampleDark {

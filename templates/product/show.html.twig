@@ -55,7 +55,7 @@
 							<div class="position-absolute px-2 mt-3 bg-danger shadow rounded-end text-white">Plus que {{product.stock}} ex. en stock!</div>
 							{% endif %}
 							<img src="{{ photourl ~ '/' ~ product.photoFileName}}" class="card-img-top" alt="...">
-							<div class="card-body bg-p">
+							<div class="card-body bg-p mb-0 pb-0">
 								<h6 class="card-title fst-italic brand-title">{{ product.getBrand() }}</h6>
 								<h5 class="card-title fw-bold model-title">{{ product.name }}</h5>
 								<p class="card-text description-text">{{(product.description|striptags| u.truncate(100, "..."))|raw}}</p>
@@ -77,6 +77,16 @@
 									</div>
 								</div>
 							</form>
+							{% if is_granted('ROLE_ADMIN') %}
+							<div class="card-footer d-flex justify-content-end align-items-center bg-light">
+									<button type="button" class="btn btn-sm btn-danger btn-sm me-2" data-bs-toggle="dropdown" aria-expanded="false">
+										Supprimer
+									</button>
+									<button type="button" class="btn btn-sm btn-secondary btn-sm me-2" data-bs-toggle="dropdown" aria-expanded="false">
+										Modifier
+									</button>
+							</div>
+							{% endif %}
 							<div class="card-footer d-flex justify-content-between align-items-center bg-primary">
 								<small class="text-muted py-auto card-footer-text">Stock :{{product.stock}}</small>
 								<small class="text-muted fs-3 fw-bold card-footer-text">{{product.price}}€</small>
