@@ -88,6 +88,14 @@ class ProductController extends AbstractController
         ]);
     }
 
+    #[Route('/product/{id}/delete', name: 'delProduct')]
+    public function delProduct(Product $product, ProductRepository $productRepo): Response {
+
+        $productRepo->remove($product, true);
+        return $this->redirectToRoute('productslist');
+        
+    }
+
     #[Route('/product', name: 'app_product')]
     public function addProduct(ProductRepository $productRepo, Request $request, string $photoDir): Response
     {

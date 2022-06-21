@@ -79,10 +79,10 @@
 							</form>
 							{% if is_granted('ROLE_ADMIN') %}
 							<div class="card-footer d-flex justify-content-end align-items-center bg-light">
-									<button type="button" class="btn btn-sm btn-danger btn-sm me-2" data-bs-toggle="dropdown" aria-expanded="false">
-										Supprimer
-									</button>
-									<button type="button" class="btn btn-sm btn-secondary btn-sm me-2" data-bs-toggle="dropdown" aria-expanded="false">
+									<a href="{{ path('delProduct', {id: product.id}) }}" onclick="return confirm('Voulez-vous supprimer ce produit?');" class="btn btn-danger me-2">
+                     					Supprimer
+                    				</a>
+									<button type="button" class="btn btn-secondary me-2" data-bs-toggle="dropdown" aria-expanded="false">
 										Modifier
 									</button>
 							</div>
