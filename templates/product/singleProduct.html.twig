@@ -48,8 +48,16 @@
                     <i class="bi bi-cart"></i>
                   </button>
                   <button class="btn btn-primary btn-rounded" type="submit" formaction="{{ path('productslist')}}">Acheter</button>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('delProduct', {id: product.id}) }}" onclick="return confirm('Voulez-vous supprimer ?');" class="btn btn-danger">
+                      Supprimer
+                    </a>
+                    <button type="button" class="btn btn-secondary me-1" data-bs-toggle="dropdown" aria-expanded="false">
+                      Modifier
+                    </button>
+                {% endif %}
                 </div>
-              </form>
+            </form>
           </div>
         </div>
 
