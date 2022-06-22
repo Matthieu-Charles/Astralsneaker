@@ -132,7 +132,7 @@
 							</li>
 							{% if is_granted('ROLE_USER') %}
 								<li class="list-inline-item m-0">
-									<a href="#">Mon compte</a>
+									<a href="{{path('update_user')}}">Mon compte</a>
 								</li>
 							{% endif %}
 						</ul>
