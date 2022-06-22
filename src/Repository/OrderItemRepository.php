@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Order;
 use App\Entity\OrderItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,18 +41,14 @@ class OrderItemRepository extends ServiceEntityRepository
         }
     }
 
-    // public function getListOrderItem()
-    // {
-    //     $order_items = [];
-    //     foreach ($this->createQueryBuilder('c')
-    //         ->select('c.product_id', 'c.quantity', 'c.price')
-    //         ->getQuery()
-    //         ->getResult() as $cols) {
-    //         $order_items[] = $cols['c.id'];
-    //     }
+    public function getOrderItemList(): Paginator
+    {
+        $query = $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery();
 
-    //     return $order_items;
-    // }
+        return new Paginator($query);
+    }
 
 //    /**
 //     * @return OrderItem[] Returns an array of OrderItem objects

@@ -5,8 +5,6 @@
 
 {% block body %}
 
-	{# affichage des fiches produits #}
-
 	<h2 class="mt-5 text-center">Vos commandes</h2>
 	<div class="border-bottom"></div>
 
@@ -18,15 +16,13 @@
 
 				<form class="my-4">
 
-					<h6 class="mb-2">Recherche commande</h6>
-					<div>
-						<input class="form-control form-control-sm" type="text" name="order_search" placeholder="chercher une commande" value="" aria-label=".form-control-sm example">
-					</div>
-					{# <div>
-						<button type="submit" class="btn btn-danger btn-sm ">
-							<i class="bi bi-search"></i>
-						</button>
-					</div> #}
+					
+					{% if is_granted('ROLE_ADMIN') %}
+						<h6 class="mb-2">Recherche commande</h6>
+						<div>
+							<input class="form-control form-control-sm" type="text" name="order_search" placeholder="chercher une commande" value="" aria-label=".form-control-sm example">
+						</div>
+					{% endif %}
 
 					<h6 class="mt-4 mb-2">Montant commande</h6>
 					<div class="input-group mb-3">
@@ -65,18 +61,13 @@
 								<th>Date création</th>
 								<th>Total</th>
 								<th></th>
-								{% if is_granted('ROLE_ADMIN') %}
-								<th></th>
-								<th></th>
-								{% endif %}
 							</tr>
 						</thead>
 
 						<tbody>
 							{% for order in orders %}
-								{% if is_granted('ROLE_ADMIN') %}
+								
 									<tr>
-									{# {{dump(order)}} #}
 										<td>{{order.id}}</td>
 										<td>{{order.user.firstname}}</td>
 										<td>{{order.user.lastname}}</td>
@@ -87,18 +78,8 @@
 												Voir
 											</a>
 										</td>
-										<td>
-											<button type="button" class="btn btn-sm btn-secondary me-1" data-bs-toggle="dropdown" aria-expanded="false">
-												Modifier
-											</button>
-										</td>
-										<td>
-											<a href="{{ path('delOrder', {id: order.id}) }}" onclick="return confirm('Voulez-vous supprimer ?');" class="btn btn-sm btn-danger">
-												Supprimer
-											</a>
-										</td>
 									</tr>
-								{% endif %}
+								
 							{% endfor %}
 						</tbody>
 					</table>

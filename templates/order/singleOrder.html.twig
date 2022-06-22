@@ -5,38 +5,49 @@
 {% endblock %}
 
 {% block body %}
-  
-  modifier order
 
-  {# <p>{{ dump(order_items) }}</p>
-  {% for order_item in order_items %}
-  <p>{{ dump(order_item) }}</p>
-  {# <p>{{ order_item }}</p> 
-  {% endfor %} #}
+<h2 class="mt-5 text-center">Commande N°{{order.id}}</h2>
+<div class="border-bottom"></div>
 
-  	            {% for order in orders %}
-										{# DUMP 1 {{dump(order_item)}} #}
-										DUMP 1 {{dump(order)}}
-                {% endfor %}
+<div class="mt-2 container">
 
-                {{dump(order_items)}}
+        <div class="text-center mt-4 pt-4">
+          <h6>Date : {{order.createdAt | date("d/m/Y")}}</h6>
+          <h6>Acheteur : {{order.user.firstname}} {{order.user.lastname}}</h6>
+        </div>
 
-  	            {% for order_item in order_items %}
-										{# DUMP 1 {{dump(order_item)}} #}
-										DUMP 2 {{dump(order_item)}}
-                {% endfor %}
+				<div class="container my-5">
+					<table class="table table-white text-align-center text-center">
+						<thead>
+							<tr>
+								<th>Quantité</th>
+								<th>Libellé du Produit</th>
+								<th>Marque</th>
+								<th>Prix Unitaire</th>
+								<th>Sous-total</th>
+								<th></th>
+							</tr>
+						</thead>
 
-                    {# {% for order_item in order_items %}
-										DUMP 1 {{dump(order_item)}}
-										DUMP 2 {{dump(order)}}
-                  {% if order_item.orderRef.id == order.id %}
-                    <tr>
-                      <td>{{order_item.id}}</td>
-                      <td>{{order_item.quantity}}</td>
-                      <td>{{order_item.product.name}}</td>
-                    </tr>
-                  {% endif %}
-                {% endfor %} #}
-
+						<tbody>
+							{% for order_item in order_items %}
+								{% if order_item.orderRef.id == order.id %}
+									<tr>
+                    <td>{{order_item.quantity}}</td>
+                    <td>{{order_item.product.name}}</td>
+                    <td>{{order_item.product.brand}}</td>
+                    <td>{{order_item.product.price}}</td>
+										<td>{{order_item.quantity * order_item.price}}€</td>
+									</tr>
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+          <div class="text-end mt-4 me-5 pe-5 pt-4">
+            <h4>Total : {{order.total}}€</h4>
+        </div>
+				</div>
+			</div>
+		</div>
 
 {% endblock %}
