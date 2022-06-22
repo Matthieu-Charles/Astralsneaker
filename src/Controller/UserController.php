@@ -38,7 +38,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/updateInformations', name: 'update_user')]
+    #[Route('/profile/updateInformations', name: 'update_user')]
     public function updateUser(UserRepository $useRepo, Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = $this->getUser();
@@ -47,7 +47,7 @@ class UserController extends AbstractController
 
         $form = $this->createForm(UserFormType::class, $user);
 
-       $handle =  UserController::handleRequest($form, $request, $user, $useRepo, $passwordHasher);
+        $handle =  UserController::handleRequest($form, $request, $user, $useRepo, $passwordHasher);
 
         if ($handle) return $handle;
 
@@ -74,11 +74,10 @@ class UserController extends AbstractController
         return false;
     }
 
-    
+
     #[Route('/user/contact', name: 'contact')]
-    public function mymap():Response
+    public function mymap(): Response
     {
-    return $this->render('user/contact.html.twig');
+        return $this->render('user/contact.html.twig');
     }
-     
 }
