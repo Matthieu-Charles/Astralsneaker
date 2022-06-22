@@ -21,10 +21,7 @@
 					<h4>Marques</h4>
 					{% for key, brand in brands %}
 						<div class="form-check form-switch">
-							<input class="form-check-input" type="checkbox" role="switch" id="{{key}}" name="brand_search[]" value="{{key}}"
-							{% if key in brand_search %}
-								checked
-							{% endif %}>
+							<input class="form-check-input" type="checkbox" role="switch" id="{{key}}" name="brand_search[]" value="{{key}}" {% if key in brand_search %} checked {% endif %}>
 							<label class="form-check-label" for={{key}}>{{brand}}</label>
 						</div>
 					{% endfor %}
@@ -38,7 +35,7 @@
 
 					<div class="input-group mb-3">
 						<span class="input-group-text" id="maxi">Max</span>
-						<input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" name="maxi"value="{{price_maxi ? price_maxi : 1000}}">
+						<input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" name="maxi" value="{{price_maxi ? price_maxi : 1000}}">
 					</div>
 					<button type="submit" class="btn btn-primary mt-3">Rechercher</button>
 
@@ -52,7 +49,9 @@
 					<div class="col-lg-4 p-3">
 						<div class="card h-100 rounded border-0 shadow">
 							{% if product.stock < 10 %}
-							<div class="position-absolute px-2 mt-3 bg-danger shadow rounded-end text-white">Plus que {{product.stock}} ex. en stock!</div>
+								<div class="position-absolute px-2 mt-3 bg-danger shadow rounded-end text-white">Plus que
+									{{product.stock}}
+									ex. en stock!</div>
 							{% endif %}
 							<img src="{{ photourl ~ '/' ~ product.photoFileName}}" class="card-img-top" alt="...">
 							<div class="card-body bg-p mb-0 pb-0">
@@ -64,28 +63,32 @@
 								<div class="row">
 									<div class="card-footer d-flex justify-content-end bg-white border-top-0 align-items-center mb-2 me-2">
 										<label for="size_search" class="me-2 fst-italic">Pointure</label>
-										<select class="form-select form-select-sm"   style="width: 70px" id="size_search" aria-label=".form-select-sm example" name="size_search">
-										{% for size in sizes %}
-											<option value="{{size}}">{{size}}</option>
-										{% endfor %}
+										<select class="form-select form-select-sm" style="width: 70px" id="size_search" aria-label=".form-select-sm example" name="size_search">
+											{% for size in sizes %}
+												<option value="{{size}}">{{size}}</option>
+											{% endfor %}
 										</select>
 									</div>
 									<div class="card-footer d-flex justify-content-end bg-white border-top-0 align-items-center mb-2 me-2">
-										<button class="mx-2 btn rounded-2 btn-white btn-sm" type="submit" formaction="{{path('singleProduct', {id: product.id})}}"><i class="bi bi-info-circle"></i></button>
-										<button class="btn rounded-2 btn-dark btn-md" type="submit" formaction="{{path('cart_add', {id: product.id})}}"><i class="bi bi-cart"></i></button>
+										<button class="mx-2 btn rounded-2 btn-white btn-sm" type="submit" formaction="{{path('singleProduct', {id: product.id})}}">
+											<i class="bi bi-info-circle"></i>
+										</button>
+										<button class="btn rounded-2 btn-dark btn-md" type="submit" formaction="{{path('cart_add', {id: product.id})}}">
+											<i class="bi bi-cart"></i>
+										</button>
 										<button class="btn rounded-2 btn-primary btn-md ms-1" type="submit" formaction="{{path('homepage')}}">Acheter</button>
 									</div>
 								</div>
 							</form>
 							{% if is_granted('ROLE_ADMIN') %}
-							<div class="card-footer d-flex justify-content-end align-items-center bg-light">
+								<div class="card-footer d-flex justify-content-end align-items-center bg-light">
 									<a href="{{ path('delProduct', {id: product.id}) }}" onclick="return confirm('Voulez-vous supprimer ce produit?');" class="btn btn-danger me-2">
-                     					Supprimer
-                    				</a>
-									<button type="button" class="btn btn-secondary me-2" data-bs-toggle="dropdown" aria-expanded="false">
+										Supprimer
+									</a>
+									<a href="{{path('product_update', {id: product.id})}}" class="btn btn-secondary me-2">
 										Modifier
-									</button>
-							</div>
+									</a>
+								</div>
 							{% endif %}
 							<div class="card-footer d-flex justify-content-between align-items-center bg-primary">
 								<small class="text-muted py-auto card-footer-text">Stock :{{product.stock}}</small>
@@ -96,15 +99,9 @@
 				{% endfor %}
 				<div class="p-5 text-center mb-100px">
 
-						{% if previous >= 0 %}
-							<a href="{{ path('productslist', {offset: previous }) }}" class="btn btn-sm btn-secondary"><<</a>
-						{% endif %}
-
-						Il y a {{products|length~' produit'~(products|length>1?'s':'')}}
-
-						{% if next < products|length %}
-							<a href="{{ path('productslist', {offset: next }) }}" class="btn btn-sm btn-secondary">>></a>
-						{% endif %}
+					{% if previous >= 0 %}
+						<a href="{{ path('productslist', {offset: previous }) }}" class="btn btn-sm btn-secondary"><<</a>Ilya{{products|length~'produit'~(products|length>1?'s':'')}}<ahref="{{path('productslist',{offset:next})}}"class="btnbtn-smbtn-secondary">>> {% endif %} {% if next < products|length %}</a>
+					{% endif %}
 
 				</div>
 			</div>

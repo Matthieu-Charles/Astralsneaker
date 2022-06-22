@@ -96,7 +96,7 @@ class ProductController extends AbstractController
         
     }
 
-    #[Route('/admin/product/add', name: 'app_product')]
+    #[Route('/admin/product/add', name: 'product_add')]
     public function addProduct(ProductRepository $productRepo, Request $request, string $photoDir): Response
     {
         $product = new Product();
@@ -118,7 +118,35 @@ class ProductController extends AbstractController
 
             $productRepo->add($product, true);
 
-            return $this->redirectToRoute('app_product');
+            return $this->redirectToRoute('product_add');
+        }
+
+        return $this->render('product/index.html.twig', [
+            'form_product' => $form->createView()
+        ]);
+    }
+
+    #[Route('/admin/product/update/{id}', name: 'product_update')]
+    public function updateProduct(Product $product ,ProductRepository $productRepo, Request $request, string $photoDir): Response
+    {
+        $form = $this->createForm(ProductFormType::class, $product);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($photo = $form['photo']->getData()) {
+                $filename = bin2hex(random_bytes(6)) . '.' . $photo->guessExtension();
+                try {
+                    $photo->move($photoDir, $filename);
+                } catch (FileException $e) {
+                    // unable to upload the photo, give up
+                }
+                $product->setPhotoFileName($filename);
+            }
+
+            $productRepo->add($product, true);
+
+            return $this->redirectToRoute('productslist');
         }
 
         return $this->render('product/index.html.twig', [

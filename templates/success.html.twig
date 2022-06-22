@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Astrasneaker | Félicitations
+{% endblock %}
+
+{% block body %}
+	<div class="text-center">
+		<h1>Félicitations !</h1>
+		<p>{{text}}</p>
+		<a href="{{path(link)}}">{{textLink}}</a>
+	</div>
+{% endblock %}

@@ -38,6 +38,16 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/user/success', name: 'user_success')]
+    public function success(): Response
+    {
+        return $this->render('success.html.twig', [
+            'link' => 'app_login',
+            'text' => 'Votre compte a bien été crée',
+            'textLink' => 'Cliquez ici afin de vous connecter',
+        ]);
+    }
+
     #[Route('/profile/updateInformations', name: 'update_user')]
     public function updateUser(UserRepository $useRepo, Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
@@ -69,7 +79,7 @@ class UserController extends AbstractController
 
             $useRepo->add($user, true);
 
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('user_success');
         }
         return false;
     }

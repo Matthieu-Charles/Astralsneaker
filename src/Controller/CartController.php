@@ -24,6 +24,16 @@ class CartController extends AbstractController
         ]);
     }
 
+    #[Route('/cart/success', name: 'cart_success')]
+    public function success(): Response
+    {
+        return $this->render('success.html.twig', [
+            'link' => 'homepage',
+            'text' => 'Votre commande a bien été enregistré',
+            'textLink' => 'Cliquez ici afin de retourner sur la page d\'accueil',
+        ]);
+    }
+
     #[Route('/cart/add/{id}', name: 'cart_add')]
     public function add($id, CartService $cartService): Response
     {
@@ -44,41 +54,29 @@ class CartController extends AbstractController
     public function validate(ProductRepository $productRepository, OrderRepository $orderRepository, CartService $cartService, OrderItemRepository $orderItemRepository, RequestStack $session)
     {
 
-        //on instancie une nouvelle commande
         $order = new Order;
-        //on récupère le client courant, $this->getUser() nous renvoie l'admin courant auquel on fait un getClient()
         $user = $this->getUser();
 
-        // on récupère la date du jour au bon format
         $date = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
-        //on définit les valeurs de la commande
         $order->setUser($user)->setTotal($cartService->getTotal())->setCreatedAt($date);
-        //on ajoute la commande en base
         $orderRepository->add($order, true);
 
-        //on récupère le contenu complet du panier dans une variable (voir le service panier)
         $cartWithData = $cartService->getFullCart();
 
-        //pour chaque data de produit du panier
         foreach ($cartWithData as $data) {
 
-            //on instancie un nouveau contenu
             $orderItem = new OrderItem;
-            // on lui attribue les valeurs correspondantes à la data en cours
             $orderItem->setOrderRef($order)->setProduct($data['product'])->setPrice($data['product']->getPrice())->setQuantity($data['quantity']);
-            // on ajoute la data en base
             $orderItemRepository->add($orderItem, true);
 
-            //on récupère le produit courante avec l'id
+           
             $product = $productRepository->find($data['product']->getId());
-            //on met à jour le stock
             $product->setStock($product->getStock() - $data['quantity']);
-            // on met à jour en bdd
             $productRepository->add($product, true);
         }
-        // on reinitialise le panier à un tableau vide
-        $session->getSession()->set('cart', []);
 
-        return $this->redirectToRoute('productslist');
+        $session->getSession()->remove('cart');
+
+        return $this->redirectToRoute('cart_success');
     }
 }
