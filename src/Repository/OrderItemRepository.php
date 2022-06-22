@@ -39,6 +39,19 @@ class OrderItemRepository extends ServiceEntityRepository
         }
     }
 
+    // public function getListOrderItem()
+    // {
+    //     $order_items = [];
+    //     foreach ($this->createQueryBuilder('c')
+    //         ->select('c.product_id', 'c.quantity', 'c.price')
+    //         ->getQuery()
+    //         ->getResult() as $cols) {
+    //         $order_items[] = $cols['c.id'];
+    //     }
+
+    //     return $order_items;
+    // }
+
 //    /**
 //     * @return OrderItem[] Returns an array of OrderItem objects
 //     */

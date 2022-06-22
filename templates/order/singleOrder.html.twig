@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Astrasneaker | Voir une commande
+{% endblock %}
+
+{% block body %}
+  
+  modifier order
+
+  {# <p>{{ dump(order_items) }}</p>
+  {% for order_item in order_items %}
+  <p>{{ dump(order_item) }}</p>
+  {# <p>{{ order_item }}</p> 
+  {% endfor %} #}
+
+  	            {% for order in orders %}
+										{# DUMP 1 {{dump(order_item)}} #}
+										DUMP 1 {{dump(order)}}
+                {% endfor %}
+
+                {{dump(order_items)}}
+
+  	            {% for order_item in order_items %}
+										{# DUMP 1 {{dump(order_item)}} #}
+										DUMP 2 {{dump(order_item)}}
+                {% endfor %}
+
+                    {# {% for order_item in order_items %}
+										DUMP 1 {{dump(order_item)}}
+										DUMP 2 {{dump(order)}}
+                  {% if order_item.orderRef.id == order.id %}
+                    <tr>
+                      <td>{{order_item.id}}</td>
+                      <td>{{order_item.quantity}}</td>
+                      <td>{{order_item.product.name}}</td>
+                    </tr>
+                  {% endif %}
+                {% endfor %} #}
+
+
+{% endblock %}

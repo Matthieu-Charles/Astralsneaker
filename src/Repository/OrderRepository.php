@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Order;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,28 +40,53 @@ class OrderRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Order[] Returns an array of Order objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('o.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?Order
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getOrderPaginator(int $paginatorInt, int $offset, string $order_search = null, string $total_mini_search = null,  string $total_maxi_search = null, string $date_mini_search = null,  string $date_maxi_search = null): Paginator
+    {
+       $query = $this->createQueryBuilder('c');
+
+        // if ($order_search) {
+        //     $query = $query
+        //             ->andWhere('c.user.lastName LIKE :order_search')
+        //             ->orWhere('c.user LIKE :order_search')
+        //             ->orWhere('c.user LIKE :order_search')
+        //             ->setParameter('order_search', '%'.$order_search.'%');
+        // }
+
+        if ($total_mini_search > $total_maxi_search) {
+            [$total_mini_search, $total_maxi_search] = [$total_maxi_search, $total_mini_search];
+        }
+
+        if ($total_mini_search) {
+            $query = $query
+                ->andWhere('c.total >= :pricemini')
+                ->setParameter('pricemini',$total_mini_search);
+        }
+
+        if ($total_maxi_search) {
+            $query = $query
+                ->andWhere('c.total <= :pricemaxi')
+                ->setParameter('pricemaxi', $total_maxi_search);
+        }
+
+        if ($date_mini_search) {
+            $query = $query
+                ->andWhere('c.createdAt >= :datemini')
+                ->setParameter('datemini',$date_mini_search);
+        }
+
+        if ($date_maxi_search) {
+            $query = $query
+                ->andWhere('c.createdAt <= :datemaxi')
+                ->setParameter('datemaxi', $date_maxi_search);
+        }
+
+        $query = $query->orderBy('c.id')
+            ->setMaxResults($paginatorInt)
+            ->setFirstResult($offset)
+            ->getQuery();
+
+        return new Paginator($query);
+    }
+
 }
